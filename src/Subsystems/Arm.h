@@ -11,6 +11,7 @@ private:
 	// for methods that implement subsystem capabilities
 	Jaguar* motor;
 	Encoder* encoder;
+
 public:
 	Arm();
 	void InitDefaultCommand();
