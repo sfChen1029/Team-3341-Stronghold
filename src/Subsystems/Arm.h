@@ -11,6 +11,7 @@ private:
 	// for methods that implement subsystem capabilities
 public:
 	Arm();
+	Encoder* encoder;
 	void InitDefaultCommand();
 };
 
