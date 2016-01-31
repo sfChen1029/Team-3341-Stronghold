@@ -4,14 +4,32 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
+//Components
+//Encoder
+//Motor
+//Limit Switch (2)
+//Functionality
+//armUp - rotates arm up to the robots and stops (attach to button)
+//setStart - puts arm in start (neutral) position (attach to button)
+//armDown - rotates arm down (for see-saw obstacle; attach to button)
+//rotateUpWhileTriggered (can be “triggered” by either button or joystick)
+//rotateDownWhileTriggered (can be “triggered” by either button or joystick)
+//StopArm - Called either based on limit switch input or button input
+
+
 class Arm: public Subsystem
 {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-public:
-	Arm();
+	Jaguar* motor;
 	Encoder* encoder;
+	float speed;
+public:
+	float const static DEFAULT_SPEED;
+	Arm();
+	void MoveArm(float speed);
+	void StopArm();
 	void InitDefaultCommand();
 };
 
