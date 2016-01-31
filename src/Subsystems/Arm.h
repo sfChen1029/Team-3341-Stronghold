@@ -9,10 +9,10 @@ class Arm: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-public:
-	Arm();
 	Jaguar* motor;
 	Encoder* encoder;
+public:
+	Arm();
 	void InitDefaultCommand();
 };
 
