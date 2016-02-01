@@ -4,6 +4,7 @@
 Arm::Arm() :
 		Subsystem("Arm")
 {
+	armControl = false;
 	encoder = new Encoder(ENCODER_LEFT_1,ENCODER_LEFT_2);
 	motor = new Jaguar(DRIVE_LEFT);
 	speed = 0;
@@ -23,6 +24,16 @@ void Arm::MoveArm(float speed)
 void Arm::StopArm()
 {
 	motor->Set(0);
+}
+
+void Arm::ArmOff()
+{
+	this->armControl = false;
+}
+
+void Arm::ArmOn()
+{
+	this->armControl = true;
 }
 
 // Put methods for controlling this subsystem
