@@ -24,5 +24,6 @@ public:
 	static Drive* drive;
 	static OI *oi;
 	static GyroSubsystem* gyro;
+	static Arm *arm;
 };
 #endif
