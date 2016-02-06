@@ -25,15 +25,17 @@ private:
 	Jaguar* motor;
 	Encoder* encoder;
 	float speed;
-	bool armControl
+	bool armControl;
 public:
 	float const static DEFAULT_SPEED;
 	Arm();
 	void ArmOn();
 	void ArmOff();
 	void MoveArm(float speed);
+	void SetStart();
 	void StopArm();
 	void InitDefaultCommand();
+	double GetAngle();
 };
 
 #endif
