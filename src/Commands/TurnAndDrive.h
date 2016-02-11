@@ -7,19 +7,19 @@
 
 class TurnAndDrive: public CommandBase
 {
-public:
-	TurnAndDrive(double distance, double angle);
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+    public:
+        TurnAndDrive(double distance, double angle);
+        void Initialize();
+        void Execute();
+        bool IsFinished();
+        void End();
+        void Interrupted();
 
-private:
-	double distance;
-	double angle;
-	NewPIDController* distancePid;
-	NewPIDController* anglePid;
+    private:
+        double distance;
+        double angle;
+        NewPIDController* distancePid;
+        NewPIDController* anglePid;
 };
 
 #endif

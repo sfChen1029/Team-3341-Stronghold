@@ -6,8 +6,8 @@
 
 class AutonomousProgram: public CommandGroup
 {
-public:
-	AutonomousProgram();
+    public:
+        AutonomousProgram();
 };
 
 #endif

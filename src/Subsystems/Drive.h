@@ -6,27 +6,30 @@
 
 class Drive: public Subsystem
 {
-private:
-	Talon* left;
-	Talon* right;
-	Encoder* eLeft;
-	Encoder* eRight;
-	float mult;
-	bool rotationCurve;
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
-public:
-	void toggleRotationCurve();
-	bool getRotationCurve();
-	void setMult(float m);
-	Drive();
-	void arcadeDrive(float move, float rotate);
-	double GetDistance();
-	double GetRate();
-	void ResetEncoders();
-	void InitDefaultCommand();
-	static float Limit(float num, float max);
-	//void ResetGyro();
+    private:
+        Talon* left;
+        Talon* right;
+        Encoder* eLeft;
+        Encoder* eRight;
+
+        float mult; // Motor speed multiplier TODO: make cubic control for driving as well
+        bool rotationCurve; // Enables Cubic Curve Control for steering
+
+    public:
+        Drive();
+
+        static float Limit(float num, float max);
+
+        void toggleRotationCurve();
+        bool getRotationCurve(); // TODO: give better name (returns bool, not some number)
+        void setMult(float m);
+        void arcadeDrive(float move, float rotate);
+
+        double GetDistance();
+        double GetRate();
+        void ResetEncoders();
+
+        void InitDefaultCommand();
 };
 
 #endif

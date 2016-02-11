@@ -6,13 +6,13 @@
 
 class ToggleRotationCurve: public CommandBase
 {
-public:
-	ToggleRotationCurve();
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+    public:
+        ToggleRotationCurve();
+        void Initialize();
+        void Execute();
+        bool IsFinished();
+        void End();
+        void Interrupted();
 };
 
 #endif

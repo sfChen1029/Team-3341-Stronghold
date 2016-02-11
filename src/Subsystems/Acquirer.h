@@ -6,12 +6,9 @@
 
 class Acquirer: public Subsystem
 {
-private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
-public:
-	Acquirer();
-	void InitDefaultCommand();
+    public:
+        Acquirer();
+        void InitDefaultCommand();
 };
 
 #endif

@@ -6,15 +6,13 @@
 
 class GyroSubsystem: public Subsystem
 {
-private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
-	Gyro* agyro;
-public:
-	GyroSubsystem();
-	void InitDefaultCommand();
-	double GetAngle();
-	void ResetGyro();
+    private:
+        Gyro* agyro;
+    public:
+        GyroSubsystem();
+        void InitDefaultCommand();
+        double GetAngle();
+        void ResetGyro();
 };
 
 #endif

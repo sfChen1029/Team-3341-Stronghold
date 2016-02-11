@@ -6,13 +6,13 @@
 
 class DriveReverse: public CommandBase
 {
-public:
-	DriveReverse();
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+    public:
+        DriveReverse();
+        void Initialize();
+        void Execute();
+        bool IsFinished();
+        void End();
+        void Interrupted();
 };
 
 #endif

@@ -7,24 +7,23 @@ OI* CommandBase::oi = NULL;
 GyroSubsystem* CommandBase::gyro = NULL;
 Arm* CommandBase::arm = NULL;
 
-CommandBase::CommandBase(char const *name) :
-		Command(name)
+CommandBase::CommandBase(char const* name) :
+    Command(name)
 {
 }
 
 CommandBase::CommandBase() :
-		Command()
+    Command()
 {
 
 }
 
 void CommandBase::init()
 {
-	// Create a single static instance of all of your subsystems. The following
-	// line should be repeated for each subsystem in the project.
-	drive = new Drive();
-	oi = new OI();
-	gyro = new GyroSubsystem();
-	arm = new Arm();
-
+    // Create a single static instance of all of your subsystems. The following
+    // line should be repeated for each subsystem in the project.
+    drive = new Drive();
+    oi = new OI();
+    gyro = new GyroSubsystem();
+    arm = new Arm();
 }

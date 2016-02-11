@@ -6,13 +6,13 @@
 
 class DetectBall: public CommandBase
 {
-public:
-	DetectBall();
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+    public:
+        DetectBall();
+        void Initialize();
+        void Execute();
+        bool IsFinished();
+        void End();
+        void Interrupted();
 };
 
 #endif

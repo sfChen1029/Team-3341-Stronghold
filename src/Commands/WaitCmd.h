@@ -6,13 +6,13 @@
 
 class WaitCmd: public CommandBase
 {
-public:
-	WaitCmd(double seconds);
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+    public:
+        WaitCmd(double seconds);
+        void Initialize();
+        void Execute();
+        bool IsFinished();
+        void End();
+        void Interrupted();
 };
 
 #endif

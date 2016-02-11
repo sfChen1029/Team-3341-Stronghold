@@ -16,14 +16,14 @@
  */
 class CommandBase: public Command
 {
-public:
-	CommandBase(char const *name);
-	CommandBase();
-	static void init();
-	// Create a single static instance of all of your subsystems
-	static Drive* drive;
-	static OI *oi;
-	static GyroSubsystem* gyro;
-	static Arm *arm;
+    public:
+        CommandBase(char const* name);
+        CommandBase();
+        static void init();
+        // Create a single static instance of all of your subsystems
+        static Drive* drive;
+        static OI* oi;
+        static GyroSubsystem* gyro;
+        static Arm* arm;
 };
 #endif

@@ -2,16 +2,14 @@
 #include "../RobotMap.h"
 
 Acquirer::Acquirer() :
-		Subsystem("ExampleSubsystem")
+    Subsystem("ExampleSubsystem")
 {
-
 }
 
 void Acquirer::InitDefaultCommand()
 {
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
 }
 
+// TODO:
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

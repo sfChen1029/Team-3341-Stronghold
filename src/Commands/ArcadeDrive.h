@@ -7,16 +7,16 @@
 
 class ArcadeDrive: public CommandBase
 {
-public:
-	ArcadeDrive();
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
-private:
-	bool isReset;
-	NewPIDController* anglePid;
+    public:
+        ArcadeDrive();
+        void Initialize();
+        void Execute();
+        bool IsFinished();
+        void End();
+        void Interrupted();
+    private:
+        bool isReset;
+        NewPIDController* anglePid;
 };
 
 #endif

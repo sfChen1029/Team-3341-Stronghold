@@ -6,13 +6,13 @@
 
 class GetBall: public CommandBase
 {
-public:
-	GetBall();
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+    public:
+        GetBall();
+        void Initialize();
+        void Execute();
+        bool IsFinished();
+        void End();
+        void Interrupted();
 };
 
 #endif

@@ -3,11 +3,12 @@
 
 #include "NetworkTables/NetworkTable.h"
 
-class NetworkTablesInterface{
-public:
-	static bool ToteFound();
-	static double GetDistance();
-	static double GetAzimuth();
+class NetworkTablesInterface
+{
+    public:
+        static bool ToteFound();
+        static double GetDistance();
+        static double GetAzimuth();
 };
 
 #endif

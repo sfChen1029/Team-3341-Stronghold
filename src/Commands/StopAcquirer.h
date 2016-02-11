@@ -6,13 +6,13 @@
 
 class StopAcquirer: public CommandBase
 {
-public:
-	StopAcquirer();
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+    public:
+        StopAcquirer();
+        void Initialize();
+        void Execute();
+        bool IsFinished();
+        void End();
+        void Interrupted();
 };
 
 #endif

@@ -6,13 +6,13 @@
 
 class DriveForward: public CommandBase
 {
-public:
-	DriveForward();
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+    public:
+        DriveForward();
+        void Initialize();
+        void Execute();
+        bool IsFinished();
+        void End();
+        void Interrupted();
 };
 
 #endif
