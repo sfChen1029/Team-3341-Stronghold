@@ -1,0 +1,8 @@
+Debug/*
+build.properties
+build.xml
+.cproject
+.project
+.settings/
+sysProps.xml
+*.swp
