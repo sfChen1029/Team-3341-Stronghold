@@ -19,25 +19,24 @@ void ArcadeDrive::Execute()
     if(fabs(oi->getDriveStick()->GetZ()) >= 0.05)
     {
         isReset = false;
-        double x = -oi->getDriveStick()->GetZ();
-        double a = 0.7;
-        double b = 0;
-        double control;
+        double rotRaw = -oi->getDriveStick()->GetZ();
+        double yRaw = -oi->getDriveStick()->GetY();
 
-        // Use Cubic Function to make turning more smooth if getRotationCurve() is true (can be disabled with joystick button)
-        if(drive->getRotationCurve())
+        // Map linear Y input to Cubic output
+        double yAdjusted = mapToCubic(0.35, 0.05, yRaw);
+
+        // Use Cubic Function to make turning more smooth if usingRotationCurve() is true (can be disabled with joystick button)
+        double rotAdjusted;
+        if(drive->usingRotationCurve())
         {
-            if(x > 0)
-                control = b + (1 - b) * ((a * pow(x, 3) + (1 - a) * x));
-            else
-                control = -b + (1 - b) * ((a * pow(x, 3) + (1 - a) * x));
+            rotAdjusted = mapToCubic(0.7, 0, rotRaw);
         }
         else
         {
-            control = x;
+            rotAdjusted = rotRaw;
         }
-
-        drive->arcadeDrive(-oi->getDriveStick()->GetY(), control);
+        
+        drive->arcadeDrive(yAdjusted, rotAdjusted);
     }
     else // Joystick is straight, use Gyro to drive straight
     {
@@ -61,6 +60,18 @@ void ArcadeDrive::Execute()
             drive->arcadeDrive(0, 0);
         }
     }
+}
+
+double mapToCubic(double a, double b, double signal)
+{
+    double control;
+
+    if(signal > 0)
+        control = b + (1 - b) * ((a * pow(signal, 3) + (1 - a) * signal));
+    else
+        control = -b + (1 - b) * ((a * pow(signal, 3) + (1 - a) * signal));
+
+    return control;
 }
 
 bool ArcadeDrive::IsFinished()

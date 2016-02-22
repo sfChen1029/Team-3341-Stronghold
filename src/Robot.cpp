@@ -48,16 +48,6 @@ class Robot: public IterativeRobot
 
         void TeleopPeriodic()
         {
-            //SmartDashboard::PutBoolean("Tote Found", NetworkTablesInterface::GetInstance()->ToteFound());
-            //SmartDashboard::PutNumber("Distance", NetworkTablesInterface::GetInstance()->GetDistance());
-            //SmartDashboard::PutNumber("Azimuth", NetworkTablesInterface::GetInstance()->GetAzimuth());
-            if(NetworkTablesInterface::GetInstance()->ToteFound())
-            {
-                printf("Distance: %f; Azimuth: %f\n",
-                       NetworkTablesInterface::GetInstance()->GetDistance(),
-                       NetworkTablesInterface::GetInstance()->GetAzimuth());
-            }
-
             //printf("Gyro Angle: %f\n", CommandBase::gyro->GetAngle());
             //CommandBase::ir->printValues();
             //printf("Ticks: %f\n", CommandBase::elevator->getS2Distance());

@@ -4,9 +4,9 @@
 GyroSubsystem::GyroSubsystem() :
     Subsystem("GyroSubsystem")
 {
-    agyro = new Gyro(new AnalogInput(0));
-    agyro->InitGyro();
-    agyro->Reset();
+    gyro = new Gyro(new AnalogInput(GYROPIN));
+    gyro->InitGyro();
+    gyro->Reset();
 }
 
 void GyroSubsystem::InitDefaultCommand()
@@ -15,10 +15,10 @@ void GyroSubsystem::InitDefaultCommand()
 
 double GyroSubsystem::GetAngle()
 {
-    return -agyro->GetAngle();
+    return -gyro->GetAngle();
 }
 
 void GyroSubsystem::ResetGyro()
 {
-    agyro->Reset();
+    gyro->Reset();
 }
