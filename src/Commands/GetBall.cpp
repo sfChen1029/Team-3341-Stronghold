@@ -22,7 +22,6 @@ void GetBall::Execute()
 
 bool GetBall::IsFinished()
 {
-	// return this->IsTimedOut();
 	return !acquirer->IsEnabled();
 }
 

@@ -8,7 +8,6 @@ ShootBall::ShootBall()
 
 void ShootBall::Initialize()
 {
-    SetTimeout(2);
     acquirer->Enable();
 }
 
@@ -19,7 +18,6 @@ void ShootBall::Execute()
 
 bool ShootBall::IsFinished()
 {
-    //return IsTimedOut();
     return !acquirer->IsEnabled();
 }
 
