@@ -5,6 +5,11 @@ LowBarAutonomous::LowBarAutonomous()
     Requires(drive);
     up = false;
     upndown = false;
+
+    xinit = 0;
+    yinit = 0;
+    zinit = 0;
+    zf = 0;
 }
 
 void LowBarAutonomous::Initialize()
