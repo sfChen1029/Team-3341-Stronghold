@@ -1,6 +1,5 @@
 #include <Subsystems/Acquirer.h>
 #include "../RobotMap.h"
-#include "Commands/DefaultBallIn.h"
 
 Acquirer::Acquirer(): Subsystem("Acquirer")
 {

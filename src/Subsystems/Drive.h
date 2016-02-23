@@ -29,6 +29,8 @@ class Drive: public Subsystem
         double GetRate();
         void ResetEncoders();
 
+        void getAccelerations(double* x, double* y, double* z);
+
         void InitDefaultCommand();
 };
 

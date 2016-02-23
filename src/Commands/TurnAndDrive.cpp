@@ -1,6 +1,4 @@
 #include <Commands/TurnAndDrive.h>
-#include "../NetworkTablesInterface.h"
-
 TurnAndDrive::TurnAndDrive(double inDistance, double inAngle)
     : distance(inDistance), angle(inAngle)
 {

@@ -3,7 +3,7 @@ build.properties
 build.xml
 .cproject
 .project
-.settings/
+.settings/*
 sysProps.xml
 *.swp
 /Debug/

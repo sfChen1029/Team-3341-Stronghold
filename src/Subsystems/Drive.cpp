@@ -114,6 +114,12 @@ bool Drive::usingRotationCurve()
     return isUsingRotationCurve;
 }
 
+// TODO dummy function: Put here because it is used in LowBarAutonomous command and was not defined
+void Drive::getAccelerations(double* x, double* y, double* z)
+{
+
+}
+
 void Drive::InitDefaultCommand()
 {
     SetDefaultCommand(new ArcadeDrive());
