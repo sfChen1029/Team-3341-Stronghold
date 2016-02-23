@@ -6,3 +6,4 @@ build.xml
 .settings/
 sysProps.xml
 *.swp
+/Debug/

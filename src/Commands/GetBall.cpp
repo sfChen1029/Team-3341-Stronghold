@@ -1,25 +1,35 @@
 #include "GetBall.h"
+#include "CommandBase.h"
 
 GetBall::GetBall()
 {
-    // Use Requires() here to declare subsystem dependencies
+    Requires(acquirer);
 }
 
 void GetBall::Initialize()
 {
+//	if(!acquirer->DetectBall())
+	acquirer->Enable();
 }
 
 void GetBall::Execute()
 {
+    acquirer->BallIn();
+//
+//    if(acquirer->DetectBall())
+//    	acquirer->Disable();
 }
 
 bool GetBall::IsFinished()
 {
-    return false;
+	// return this->IsTimedOut();
+	return !acquirer->IsEnabled();
 }
 
 void GetBall::End()
 {
+	acquirer->Stop();
+	acquirer->Disable();
 }
 
 void GetBall::Interrupted()
