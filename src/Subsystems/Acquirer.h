@@ -6,9 +6,22 @@
 
 class Acquirer: public Subsystem
 {
+    private:
+        Victor* motor;
+        bool enabled;
+        AnalogInput* ir;
+        int THRESHOLD;
+
     public:
         Acquirer();
-        void InitDefaultCommand();
+        void BallIn();
+        void BallOut();
+        void Stop();
+        bool IsEnabled();
+        void Enable();
+        void Disable();
+        bool DetectBall();
+        double GetInput();
 };
 
 #endif

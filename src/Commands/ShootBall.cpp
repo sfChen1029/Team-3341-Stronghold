@@ -1,26 +1,32 @@
 #include "ShootBall.h"
+#include "CommandBase.h"
 
 ShootBall::ShootBall()
 {
-    // Use Requires() here to declare subsystem dependencies
+    Requires(acquirer);
 }
 
 void ShootBall::Initialize()
 {
+    SetTimeout(2);
+    acquirer->Enable();
 }
 
 void ShootBall::Execute()
 {
-    // TODO: add shooting code
+    acquirer->BallOut();
 }
 
 bool ShootBall::IsFinished()
 {
-    return false;
+    //return IsTimedOut();
+    return !acquirer->IsEnabled();
 }
 
 void ShootBall::End()
 {
+    acquirer->Stop();
+    acquirer->Disable();
 }
 
 void ShootBall::Interrupted()

@@ -17,6 +17,7 @@ class NewPIDController
         double GetKd();
         double GetError();
         double GetLastPWM();
+
     private:
         bool integralThreshold;
         double Kp;

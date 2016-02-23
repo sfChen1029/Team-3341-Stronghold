@@ -107,7 +107,7 @@ double Drive::GetRate()
 
 void Drive::toggleRotationCurve()
 {
-    rotationCurve = !rotationCurve;
+    isUsingRotationCurve = !isUsingRotationCurve;
 }
 
 bool Drive::usingRotationCurve()

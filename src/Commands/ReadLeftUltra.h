@@ -1,13 +1,13 @@
-#ifndef DetectBall_H
-#define DetectBall_H
+#ifndef ReadLeftUltra_H
+#define ReadLeftUltra_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class DetectBall: public CommandBase
+class ReadLeftUltra: public CommandBase
 {
     public:
-        DetectBall();
+        ReadLeftUltra();
         void Initialize();
         void Execute();
         bool IsFinished();

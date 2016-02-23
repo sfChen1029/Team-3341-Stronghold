@@ -3,16 +3,16 @@
 
 #include "WPILib.h"
 
-// RobotMap.h
-// Defines all the ports used on the RoboRIO
-
 // DRIVE MOTORS
 const int DRIVE_LEFT = 0;
 const int DRIVE_RIGHT = 1;
 
-//ARM
-
 //ACQUIRER
+const int ACQUIRER = 2;
+const int ACQUIRER_IR = 2;
+
+//ARM
+const int ARM = 3;
 
 //JOYSTICKS
 const int DRIVESTICK = 0;

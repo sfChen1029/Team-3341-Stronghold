@@ -1,10 +1,11 @@
 #include "CommandBase.h"
 #include "Commands/Scheduler.h"
 
-// Initialize a single static instance of all of your subsystems to NULL
 Drive* CommandBase::drive = NULL;
 OI* CommandBase::oi = NULL;
 GyroSubsystem* CommandBase::gyro = NULL;
+UltraSonics* CommandBase::ultraSonic = NULL;
+Acquirer* CommandBase::acquirer = NULL;
 Arm* CommandBase::arm = NULL;
 
 CommandBase::CommandBase(char const* name) :
@@ -15,15 +16,14 @@ CommandBase::CommandBase(char const* name) :
 CommandBase::CommandBase() :
     Command()
 {
-
 }
 
 void CommandBase::init()
 {
-    // Create a single static instance of all of your subsystems. The following
-    // line should be repeated for each subsystem in the project.
     drive = new Drive();
     oi = new OI();
     gyro = new GyroSubsystem();
+	ultraSonic = new UltraSonics();
+	acquirer = new Acquirer();
     arm = new Arm();
 }

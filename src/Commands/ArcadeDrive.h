@@ -14,6 +14,7 @@ class ArcadeDrive: public CommandBase
         bool IsFinished();
         void End();
         void Interrupted();
+
     private:
         bool isReset;
         NewPIDController* anglePid;

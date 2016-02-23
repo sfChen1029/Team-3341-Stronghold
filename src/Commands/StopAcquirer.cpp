@@ -1,8 +1,9 @@
 #include "StopAcquirer.h"
+#include "CommandBase.h"
 
 StopAcquirer::StopAcquirer()
 {
-    // TODO: requires(acquirer) ?
+    Requires(acquirer);
 }
 
 void StopAcquirer::Initialize()
@@ -11,15 +12,17 @@ void StopAcquirer::Initialize()
 
 void StopAcquirer::Execute()
 {
+    acquirer->Stop();
 }
 
 bool StopAcquirer::IsFinished()
 {
-    return false;
+    return true;
 }
 
 void StopAcquirer::End()
 {
+    acquirer->Disable();
 }
 
 void StopAcquirer::Interrupted()

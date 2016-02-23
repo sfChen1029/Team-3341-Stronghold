@@ -1,21 +1,25 @@
 #include "WPILib.h"
 #include "NetworkTablesInterface.h"
 #include "Commands/Command.h"
+#include "Commands/MoveArm.h"
 #include "Commands/AutonomousProgram.h"
 #include "CommandBase.h"
 #include <stdint.h>
+#include <Subsystems/Acquirer.h>
 
 class Robot: public IterativeRobot
 {
     private:
         AutonomousProgram* autonomousCommand;
         LiveWindow* lw;
+        Command* arm;
 
         void RobotInit()
         {
             CommandBase::init();
             autonomousCommand = new AutonomousProgram();
             lw = LiveWindow::GetInstance();
+            arm = new MoveArm();
         }
 
         void DisabledPeriodic()
@@ -36,21 +40,17 @@ class Robot: public IterativeRobot
 
         void TeleopInit()
         {
-            // This makes sure that the autonomous stops running when
-            // teleop starts running. If you want the autonomous to
-            // continue until interrupted by another command, remove
-            // this line or comment it out.
             if(autonomousCommand != NULL)
                 autonomousCommand->Cancel();
             CommandBase::drive->ResetEncoders();
             CommandBase::gyro->ResetGyro();
+            arm->Start();
         }
 
         void TeleopPeriodic()
         {
-            //printf("Gyro Angle: %f\n", CommandBase::gyro->GetAngle());
-            //CommandBase::ir->printValues();
-            //printf("Ticks: %f\n", CommandBase::elevator->getS2Distance());
+            SmartDashboard::PutNumber("IR Analog Input", CommandBase::acquirer->GetInput());
+            SmartDashboard::PutBoolean("Ball Loaded", CommandBase::acquirer->DetectBall());
 
             Scheduler::GetInstance()->Run();
         }
@@ -62,5 +62,3 @@ class Robot: public IterativeRobot
 };
 
 START_ROBOT_CLASS(Robot);
-
-
