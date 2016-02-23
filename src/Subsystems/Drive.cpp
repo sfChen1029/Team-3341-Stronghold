@@ -2,15 +2,14 @@
 #include "../RobotMap.h"
 #include <math.h>
 #include "Commands/ArcadeDrive.h"
-#include "../CommandBase.h"
-
+#include "../CommandBase.h" 
 #define max(x, y) (((x) > (y)) ? (x) : (y))
 
 Drive::Drive() :
     Subsystem("Drive"), left(new Talon(DRIVE_LEFT)), right(new Talon(DRIVE_RIGHT)),
     encoderLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
     encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
-    rotationCurve(true)
+    isUsingRotationCurve(true)
 
 {
     encoderLeft->SetDistancePerPulse(1.0);

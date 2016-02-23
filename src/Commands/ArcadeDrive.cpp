@@ -62,7 +62,7 @@ void ArcadeDrive::Execute()
     }
 }
 
-double mapToCubic(double a, double b, double signal)
+double ArcadeDrive::mapToCubic(double a, double b, double signal)
 {
     double control;
 
