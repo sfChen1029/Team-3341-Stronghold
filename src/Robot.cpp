@@ -11,14 +11,14 @@ class Robot: public IterativeRobot
     private:
         AutonomousProgram* autonomousCommand;
         LiveWindow* lw;
-        Command* arm;
+        //Command* arm;
 
         void RobotInit()
         {
             CommandBase::init();
             autonomousCommand = new AutonomousProgram();
             lw = LiveWindow::GetInstance();
-            arm = new MoveArm();
+           // arm = new MoveArm();
         }
 
         void DisabledPeriodic()
@@ -43,7 +43,7 @@ class Robot: public IterativeRobot
                 autonomousCommand->Cancel();
             CommandBase::drive->ResetEncoders();
             CommandBase::gyro->ResetGyro();
-            arm->Start();
+           // arm->Start();
         }
 
         void TeleopPeriodic()

@@ -24,7 +24,7 @@ class Arm: public Subsystem
 {
     private:
         Jaguar* motor;
-        AbsEncoder* encoder;
+       // AbsEncoder* encoder;
         float speed;
         bool armControl;
 
@@ -33,7 +33,7 @@ class Arm: public Subsystem
         Arm();
         void ArmOn();
         void ArmOff();
-        void MoveArm(float speed);
+        void moveArm(float speed); // changed name from "MoveArm" to "moveArm" to avoid conflict with Command Name
         void SetStart();
         void StopArm();
         short GetAngle();

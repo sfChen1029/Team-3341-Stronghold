@@ -31,7 +31,7 @@ void MoveArm::Execute()
     }
 
     SmartDashboard::PutNumber("Arm motor value", control);
-    arm->MoveArm((float)control);
+    arm->moveArm((float)control);
 
 }
 

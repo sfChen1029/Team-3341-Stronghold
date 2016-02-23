@@ -12,14 +12,16 @@ Arm::Arm() :
     //Command* moveArm = new ShootBall();
     //this->SetDefaultCommand(new MoveArm());
     //encoder = new AbsEncoder();
+   // this->SetDefaultCommand(new MoveArm());
 }
 
 void Arm::InitDefaultCommand()
 {
-    //this->SetDefaultCommand(new MoveArm());
+    SetDefaultCommand(new MoveArm());
 }
 
-void Arm::MoveArm(float speedo)
+// changed name from "MoveArm" to "moveArm" to avoid conflict with Command Name
+void Arm::moveArm(float speedo)
 {
     //if(armControl)
     motor->SetSpeed(speedo);
@@ -45,14 +47,15 @@ void Arm::SetStart()
     ArmOn();
     while(this->GetAngle() > 5)
     {
-        this->MoveArm(-0.5);
+        this->moveArm(-0.5);
     }
     ArmOff();
 }
 
 short Arm::GetAngle()
 {
-    return encoder->getInput();
+   // return encoder->getInput();
+	return 0; // temporary code
 }
 
 void Arm::SetAngle(double angle)
@@ -60,7 +63,7 @@ void Arm::SetAngle(double angle)
     ArmOn();
     while(this-> GetAngle() < angle)
     {
-        this->MoveArm(0.5);
+        this->moveArm(0.5);
     }
     ArmOff();
 }
