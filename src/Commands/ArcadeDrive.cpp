@@ -19,27 +19,31 @@ void ArcadeDrive::Execute()
     if(fabs(oi->getDriveStick()->GetZ()) >= 0.05)
     {
         isReset = false;
-        double rotRaw = -oi->getDriveStick()->GetZ();
-        double yRaw = -oi->getDriveStick()->GetY();
+        double x = oi->getDriveStick()->GetZ();
+        double a = 0.7;
+        double b = 0;
+        double control;
 
-        // Map linear Y input to Cubic output
-        double yAdjusted = mapToCubic(0.35, 0.05, yRaw);
-
-        // Use Cubic Function to make turning more smooth if usingRotationCurve() is true (can be disabled with joystick button)
-        double rotAdjusted;
-        if(drive->usingRotationCurve())
+        // Use Cubic Function to make turning more smooth if getRotationCurve() is true (can be disabled with joystick button)
+        if(drive->getRotationCurve())
         {
-            rotAdjusted = mapToCubic(0.7, 0, rotRaw);
+            if(x > 0)
+                control = b + (1 - b) * ((a * pow(x, 3) + (1 - a) * x));
+            else
+                control = -b + (1 - b) * ((a * pow(x, 3) + (1 - a) * x));
         }
         else
         {
-            rotAdjusted = rotRaw;
+            control = x;
         }
-        
-        drive->arcadeDrive(yAdjusted, rotAdjusted);
+
+        drive->arcadeDrive(-oi->getDriveStick()->GetY(), -control);
     }
     else // Joystick is straight, use Gyro to drive straight
     {
+    	double angle = gyro-> GetAngle();
+    	double correctedAngleSignal = anglePid->Tick(angle);
+    	drive -> arcadeDrive(.05, correctedAngleSignal);
         if(!isReset)
         {
             drive->arcadeDrive(0, 0);
@@ -60,18 +64,6 @@ void ArcadeDrive::Execute()
             drive->arcadeDrive(0, 0);
         }
     }
-}
-
-double ArcadeDrive::mapToCubic(double a, double b, double signal)
-{
-    double control;
-
-    if(signal > 0)
-        control = b + (1 - b) * ((a * pow(signal, 3) + (1 - a) * signal));
-    else
-        control = -b + (1 - b) * ((a * pow(signal, 3) + (1 - a) * signal));
-
-    return control;
 }
 
 bool ArcadeDrive::IsFinished()

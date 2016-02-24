@@ -2,18 +2,19 @@
 #include "../RobotMap.h"
 #include <math.h>
 #include "Commands/ArcadeDrive.h"
-#include "../CommandBase.h" 
+#include "../CommandBase.h"
+
 #define max(x, y) (((x) > (y)) ? (x) : (y))
 
 Drive::Drive() :
     Subsystem("Drive"), left(new Talon(DRIVE_LEFT)), right(new Talon(DRIVE_RIGHT)),
-    encoderLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
-    encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
-    isUsingRotationCurve(true)
+    eLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
+    eRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
+    rotationCurve(true)
 
 {
-    encoderLeft->SetDistancePerPulse(1.0);
-    encoderRight->SetDistancePerPulse(1.0);
+    eLeft->SetDistancePerPulse(1.0);
+    eRight->SetDistancePerPulse(1.0);
 }
 
 void Drive::setMult(float m)
@@ -21,19 +22,26 @@ void Drive::setMult(float m)
     mult = m;
 }
 
-void Drive::ResetEncoders()
+int Drive::getMult()
 {
-    encoderLeft->Reset();
-    encoderRight->Reset();
+	return mult;
 }
 
-void Drive::arcadeDrive(float moveValue, float rotateValue)
+void Drive::ResetEncoders()
+{
+    eLeft->Reset();
+    eRight->Reset();
+}
+
+//void Drive::arcadeDrive(float moveValue, float rotateValue)
+void Drive::arcadeDrive(float rotateValue, float moveValue)
+
 {
     float leftMotorOutput;
     float rightMotorOutput;
 
     moveValue = Drive::Limit(moveValue, 1.0) * mult;
-    rotateValue = Drive::Limit(rotateValue, 1.0);
+    rotateValue = -Drive::Limit(rotateValue, 1.0);
 
     // Standard ArcadeDrive algorithm from Google
     if(moveValue > 0.0)
@@ -66,8 +74,8 @@ void Drive::arcadeDrive(float moveValue, float rotateValue)
     float limitedL = Drive::Limit(leftMotorOutput, 1.0);
     float limitedR = Drive::Limit(rightMotorOutput, 1.0);
 
-    left->Set(limitedL);
-    right->Set(limitedR);
+    left->Set(-limitedL);
+    right->Set(-limitedR);
 }
 
 float Drive::Limit(float num, float max)
@@ -87,8 +95,8 @@ double Drive::GetDistance()
     // TODO: test to see if negation is necessary
     return 
     (
-        (double) ((encoderLeft->Get()) / 1090.0) -
-        (double) ((encoderRight->Get()) / 1090.0)
+        (double) ((eLeft->Get()) / 1090.0) -
+        (double) ((eRight->Get()) / 1090.0)
     ) / -2.0;
 }
 
@@ -98,23 +106,22 @@ double Drive::GetRate()
     // TODO: test to see if negation is necessary
     return 
     (
-        (double) ((encoderLeft->GetRate()) / 1090.0) - 
-        (double) ((encoderRight->GetRate()) / 1090.0)
+        (double) ((eLeft->GetRate()) / 1090.0) - 
+        (double) ((eRight->GetRate()) / 1090.0)
     ) / -2.0;
                  
 }
 
 void Drive::toggleRotationCurve()
 {
-    isUsingRotationCurve = !isUsingRotationCurve;
+    rotationCurve = !rotationCurve;
 }
 
-bool Drive::usingRotationCurve()
+bool Drive::getRotationCurve()
 {
-    return isUsingRotationCurve;
+    return rotationCurve;
 }
 
-// TODO dummy function: Put here because it is used in LowBarAutonomous command and was not defined
 void Drive::getAccelerations(double* x, double* y, double* z)
 {
 
