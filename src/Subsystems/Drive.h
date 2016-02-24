@@ -9,11 +9,11 @@ class Drive: public Subsystem
     private:
         Talon* left;
         Talon* right;
-        Encoder* eLeft;
-        Encoder* eRight;
+        Encoder* encoderLeft;
+        Encoder* encoderRight;
 
         float mult; // Motor speed multiplier TODO: make cubic control for driving as well
-        bool rotationCurve; // Enables Cubic Curve Control for steering
+        bool isUsingRotationCurve; // Enables Cubic Curve Control for steering
 
     public:
         Drive();
@@ -21,7 +21,7 @@ class Drive: public Subsystem
         static float Limit(float num, float max);
 
         void toggleRotationCurve();
-        bool getRotationCurve(); // TODO: give better name (returns bool, not some number)
+        bool usingRotationCurve();
         void setMult(float m);
         int getMult();
         void arcadeDrive(float move, float rotate);

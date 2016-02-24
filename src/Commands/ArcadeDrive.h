@@ -15,6 +15,7 @@ class ArcadeDrive: public CommandBase
         void End();
         void Interrupted();
     private:
+        double mapToCubic(double a, double b, double signal);
         bool isReset;
         NewPIDController* anglePid;
 };
