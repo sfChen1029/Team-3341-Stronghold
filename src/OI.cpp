@@ -4,7 +4,6 @@
 #include "Commands/ShootBall.h"
 #include "Commands/StopAcquirer.h"
 #include "Commands/GetBall.h"
-#include "Commands/ToggleRotationCurve.h"
 #include "CommandBase.h"
 
 /*

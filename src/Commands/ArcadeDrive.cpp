@@ -5,12 +5,12 @@ ArcadeDrive::ArcadeDrive()
 {
     Requires(drive);
     Requires(gyro);
+    anglePid = new NewPIDController(.05, 0, 0, 0, false);
 }
 
 void ArcadeDrive::Initialize()
 {
     gyro->ResetGyro();
-    anglePid = new NewPIDController(.05, 0, 0, 0, false);
 }
 
 void ArcadeDrive::Execute()
