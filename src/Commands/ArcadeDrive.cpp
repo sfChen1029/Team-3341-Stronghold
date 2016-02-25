@@ -22,19 +22,10 @@ void ArcadeDrive::Execute()
     // Joystick is turning, turn normally
     if(fabs(rotRaw) >= 0.05)
     {
+    	// Flag the gyro for reseting next time we try to drive straight
         isReset = false;
-        double rotAdjusted;
 
-        // Use Cubic Function to make turning more smooth if usingRotationCurve() is true (can be disabled with joystick button)
-        if(drive->usingRotationCurve())
-        {
-            rotAdjusted = mapToCubic(0.7, 0, rotRaw);
-        }
-        else
-        {
-            rotAdjusted = rotRaw;
-        }
-
+		double rotAdjusted = mapToCubic(0.7, 0, rotRaw);
         drive->arcadeDrive(-yAdjusted, -rotAdjusted);
     }
     else // Joystick is straight, use Gyro to drive straight
@@ -71,10 +62,10 @@ double ArcadeDrive::mapToCubic(double a, double b, double signal)
 {
     double control;
 
-    if(x > 0)
-        control = b + (1 - b) * ((a * pow(x, 3) + (1 - a) * x));
+    if(signal > 0)
+        control = b + (1 - b) * ((a * pow(signal, 3) + (1 - a) * signal));
     else
-        control = -b + (1 - b) * ((a * pow(x, 3) + (1 - a) * x));
+        control = -b + (1 - b) * ((a * pow(signal, 3) + (1 - a) * signal));
 
     return control;
 }

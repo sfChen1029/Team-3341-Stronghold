@@ -9,9 +9,7 @@
 Drive::Drive() :
     Subsystem("Drive"), left(new Talon(DRIVE_LEFT)), right(new Talon(DRIVE_RIGHT)),
     encoderLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
-    encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
-    isUsingRotationCurve(true)
-
+    encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0)
 {
     encoderLeft->SetDistancePerPulse(1.0);
     encoderRight->SetDistancePerPulse(1.0);
@@ -110,16 +108,6 @@ double Drive::GetRate()
         (double) ((encoderRight->GetRate()) / 1090.0)
     ) / -2.0;
                  
-}
-
-void Drive::toggleRotationCurve()
-{
-    isUsingRotationCurve = !rotationCurve;
-}
-
-bool Drive::usingRotationCurve()
-{
-    return isUsingRotationCurve;
 }
 
 void Drive::getAccelerations(double* x, double* y, double* z)

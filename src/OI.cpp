@@ -24,9 +24,6 @@
 OI::OI() :
     driveStick(new Joystick(DRIVESTICK)), operatorStick(new Joystick(OPERATORSTICK))
 {
-    Button* toggleRotationCurve = new JoystickButton(driveStick, 5);
-    toggleRotationCurve->WhenPressed(new ToggleRotationCurve());
-
     Button* toggleReverse = new JoystickButton(driveStick, 13);
     toggleReverse->WhenPressed(new DriveReverse());
 
