@@ -9,7 +9,8 @@
 Drive::Drive() :
     Subsystem("Drive"), left(new Talon(DRIVE_LEFT)), right(new Talon(DRIVE_RIGHT)),
     encoderLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
-    encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0)
+    encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
+	ticksToDistance(100)
 {
     encoderLeft->SetDistancePerPulse(1.0);
     encoderRight->SetDistancePerPulse(1.0);
@@ -87,14 +88,15 @@ float Drive::Limit(float num, float max)
     return num;
 }
 
+// Return distance in feet
 double Drive::GetDistance()
 {
     // Average of both encoders (must negate to get proper direction)
     // TODO: test to see if negation is necessary
     return 
     (
-        (double) ((encoderLeft->Get()) / 1090.0) -
-        (double) ((encoderRight->Get()) / 1090.0)
+        (double) ((encoderLeft->Get()) / ticksToDistance) -
+        (double) ((encoderRight->Get()) / ticksToDistance)
     ) / -2.0;
 }
 
@@ -104,8 +106,8 @@ double Drive::GetRate()
     // TODO: test to see if negation is necessary
     return 
     (
-        (double) ((encoderLeft->GetRate()) / 1090.0) - 
-        (double) ((encoderRight->GetRate()) / 1090.0)
+        (double) ((encoderLeft->GetRate()) / ticksToDistance) -
+        (double) ((encoderRight->GetRate()) / ticksToDistance)
     ) / -2.0;
                  
 }

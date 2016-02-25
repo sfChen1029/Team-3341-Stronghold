@@ -12,6 +12,7 @@ class Drive: public Subsystem
         Encoder* encoderLeft;
         Encoder* encoderRight;
 
+        int ticksToDistance;
         float mult; // Motor speed multiplier TODO: make cubic control for driving as well
 
     public:
