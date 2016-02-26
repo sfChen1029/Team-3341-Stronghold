@@ -3,7 +3,7 @@
 
 Acquirer::Acquirer(): Subsystem("Acquirer")
 {
-    motor = new Talon(ACQUIRER);
+    motor = new Jaguar(ACQUIRER);
     enabled = false;
     ir = new AnalogInput(ACQUIRER_IR);
 
@@ -23,7 +23,7 @@ void Acquirer::Disable()
 void Acquirer::BallOut()
 {
     if(enabled)
-        motor->SetSpeed(6);
+        motor->SetSpeed(1);
 }
 
 void Acquirer::BallIn()

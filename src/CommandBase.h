@@ -6,7 +6,7 @@
 #include "Subsystems/Drive.h"
 #include "Subsystems/GyroSubsystem.h"
 #include "Subsystems/Acquirer.h"
-#include "Subsystems/UltraSonics.h"
+#include "Subsystems/UltraSoundTester.h"
 #include "OI.h"
 #include "Subsystems/Acquirer.h"
 #include "Subsystems/Arm.h"
@@ -21,7 +21,7 @@ class CommandBase: public Command
         static Drive* drive;
         static OI* oi;
         static GyroSubsystem* gyro;
-        static UltraSonics* ultraSonic;
+        static UltraSoundTester* ultraSonic;
         static Acquirer* acquirer;
         static Arm* arm;
 };
