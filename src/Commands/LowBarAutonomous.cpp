@@ -1,50 +1,65 @@
-#include <Commands/LowBarAutonomous.h>
+#include <Commands/LowBar.h>
 
-LowBarAutonomous::LowBarAutonomous()
+LowBar::LowBar()
 {
-    Requires(drive);
-    up = false;
-    upndown = false;
-
-    xinit = 0;
-    yinit = 0;
-    zinit = 0;
-    zf = 0;
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(chassis);
+	Requires(drive);
+	//Requires(gyro);
+	//acc = new BuiltInAccelerometer();
+	up = false;
+	upndown = false;
 }
 
-void LowBarAutonomous::Initialize()
+// Called just before this Command runs the first time
+void LowBar::Initialize()
 {
-    std::cout << "Initializing autonomous mode" << std::endl;
-    drive->getAccelerations(&xinit, &yinit, &zinit);
-    zf = -2147483647;
+	//drive->ResetEncoders();
+	//drive->getAccel()->
+	std::cout<<"iiiiiiiinnnnnnnniiiiiiitttttt"<<std::endl;
+	drive->getAccelerations(&xinit,&yinit,&zinit);
+		zf = 0;//acc->GetZ();
+		zi = 0;
 }
 
-void LowBarAutonomous::Execute()
+// Called repeatedly when this Command is scheduled to run
+void LowBar::Execute()
 {
-    drive->getAccelerations(&xinit, &yinit, &zinit);
-    drive->arcadeDrive(1, 0);
-
-    if(yinit > 0.15)
-        up = true;
-    else if(up && yinit < 0.03)
-        upndown = true;
-
-    if(zf % 50 == 0)
-        std::cout << xinit << " " << yinit << " " << zinit << std::endl;
-
-    zf++;
+	drive->getAccelerations(&xinit,&yinit,&zinit);
+	drive->arcadeDrive(0.35, 0);
+	if(zinit>1.5 || zinit<0.5)
+	{
+		int i = zf;
+		zi = i;
+		if(up)
+			upndown = true;
+	}
+	if(!up)
+	{
+		if(zf-zi>=50)
+			up = true;
+	}
+	std::cout<<xinit<<" "<<yinit<<" "<<zinit<<std::endl;
+	zf++;
 }
 
-bool LowBarAutonomous::IsFinished()
+// Make this return true when this Command no longer needs to run execute()
+bool LowBar::IsFinished()
 {
-    return upndown || zf < 2147483647;
+	return upndown || zf>2000000;
 }
 
-void LowBarAutonomous::End()
+// Called once after isFinished returns true
+void LowBar::End()
 {
-    std::cout << "Done!" << std::endl;
+	//delete acc;
+	std::cout<<"Done!"<<std::endl;
+	drive->arcadeDrive(0,0);
 }
 
-void LowBarAutonomous::Interrupted()
+// Called when another command which requires one or more of the same
+// subsystems is scheduled to run
+void LowBar::Interrupted()
 {
+
 }
