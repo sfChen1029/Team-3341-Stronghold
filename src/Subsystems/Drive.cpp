@@ -10,7 +10,7 @@ Drive::Drive() :
     Subsystem("Drive"), left(new Talon(DRIVE_LEFT)), right(new Talon(DRIVE_RIGHT)),
     encoderLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
     encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
-	ticksToDistance(100)
+	ticksToDistance(114) // 112 < ticksToDistance < 117
 {
     encoderLeft->SetDistancePerPulse(1.0);
     encoderRight->SetDistancePerPulse(1.0);
@@ -32,8 +32,8 @@ void Drive::ResetEncoders()
     encoderRight->Reset();
 }
 
-//void Drive::arcadeDrive(float moveValue, float rotateValue)
-void Drive::arcadeDrive(float rotateValue, float moveValue)
+void Drive::arcadeDrive(float moveValue, float rotateValue)
+//void Drive::arcadeDrive(float rotateValue, float moveValue)
 
 {
     float leftMotorOutput;
@@ -71,7 +71,7 @@ void Drive::arcadeDrive(float rotateValue, float moveValue)
     }
 
     float limitedL = Drive::Limit(leftMotorOutput, 1.0);
-    float limitedR = Drive::Limit(rightMotorOutput, 1.0);
+    float limitedR = -Drive::Limit(rightMotorOutput, 1.0);
 
     left->Set(-limitedL);
     right->Set(-limitedR);
@@ -92,7 +92,6 @@ float Drive::Limit(float num, float max)
 double Drive::GetDistance()
 {
     // Average of both encoders (must negate to get proper direction)
-    // TODO: test to see if negation is necessary
     return 
     (
         (double) ((encoderLeft->Get()) / ticksToDistance) -

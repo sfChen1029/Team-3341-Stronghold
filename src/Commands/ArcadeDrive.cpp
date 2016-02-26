@@ -17,7 +17,7 @@ void ArcadeDrive::Execute()
 {
     double rotRaw = oi->getDriveStick()->GetZ();
     double yRaw = oi->getDriveStick()->GetY();
-    double yAdjusted = mapToCubic(0.35, 0, yRaw);
+    double yAdjusted = mapToCubic(0.7, 0, yRaw);
 
     // Joystick is turning, turn normally
     if(fabs(rotRaw) >= 0.05)
@@ -25,7 +25,7 @@ void ArcadeDrive::Execute()
     	// Flag the gyro for reseting next time we try to drive straight
         isReset = false;
 
-		double rotAdjusted = mapToCubic(0.7, 0, rotRaw);
+		double rotAdjusted = mapToCubic(0.35, 0, rotRaw);
         drive->arcadeDrive(-yAdjusted, -rotAdjusted);
     }
     else // Joystick is straight, use Gyro to drive straight

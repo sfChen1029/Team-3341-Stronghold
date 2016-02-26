@@ -38,7 +38,7 @@ bool TurnAndDrive::IsFinished()
         (
             (fabs(distancePid->GetError()) < 0.005)
             && (fabs(anglePid->GetError()) < 0.5) 
-            && (fabs(drive->GetRate()) < 1e-3)
+            //&& (fabs(drive->GetRate()) < 1e-3)
         )
         || IsTimedOut()
     );
