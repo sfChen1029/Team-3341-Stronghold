@@ -3,21 +3,22 @@
 
 #include "../CommandBase.h"
 #include "WPILib.h"
+//#include "GyroSubsystem.h"
 
-class LowBarAutonomous: public CommandBase
+class LowBar: public CommandBase
 {
-    public:
-        LowBarAutonomous();
-        void Initialize();
-        void Execute();
-        bool IsFinished();
-        void End();
-        void Interrupted();
-
-    private:
-        bool up, upndown;
-        double xinit, yinit, zinit;
-        int zf;
+public:
+	LowBar();
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
+private:
+	//BuiltInAccelerometer* acc;
+	bool up, upndown;
+	double xinit, yinit, zinit;
+	int zf,zi;
 };
 
 #endif

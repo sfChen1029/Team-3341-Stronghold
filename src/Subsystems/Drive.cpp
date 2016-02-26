@@ -113,7 +113,9 @@ double Drive::GetRate()
 
 void Drive::getAccelerations(double* x, double* y, double* z)
 {
-
+	*x = accel->GetX();
+	*y = accel->GetY();
+	*z = accel->GetZ();
 }
 
 void Drive::InitDefaultCommand()
