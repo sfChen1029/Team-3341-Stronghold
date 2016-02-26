@@ -29,14 +29,15 @@ OI::OI() :
 
     Button* toggleReverse = new JoystickButton(driveStick, 13);
     toggleReverse->WhenPressed(new DriveReverse());
+    toggleReverse->WhenReleased(new DriveForward());
 
     // Hold down button 10 on operator stick to shoot ball
-    Button* shootBall = new JoystickButton(operatorStick, 10);
+    Button* shootBall = new JoystickButton(driveStick, 1);
     shootBall->WhenPressed(new ShootBall());
     shootBall->WhenReleased(new StopAcquirer());
 
     // Hold down button 8 on operator stick to get ball
-    Button* getBall = new JoystickButton(operatorStick, 9);
+    Button* getBall = new JoystickButton(driveStick, 2);
     getBall->WhenPressed(new GetBall());
     getBall->WhenReleased(new StopAcquirer());
 

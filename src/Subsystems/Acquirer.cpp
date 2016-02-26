@@ -3,11 +3,11 @@
 
 Acquirer::Acquirer(): Subsystem("Acquirer")
 {
-    motor = new Victor(ACQUIRER);
+    motor = new Talon(ACQUIRER);
     enabled = false;
     ir = new AnalogInput(ACQUIRER_IR);
 
-    THRESHOLD = 200;
+    THRESHOLD = 500;
 }
 
 void Acquirer::Enable()
@@ -23,13 +23,13 @@ void Acquirer::Disable()
 void Acquirer::BallOut()
 {
     if(enabled)
-        motor->SetSpeed(-1);
+        motor->SetSpeed(6);
 }
 
 void Acquirer::BallIn()
 {
     if(enabled)
-        motor->SetSpeed(2);
+        motor->SetSpeed(-1);
 }
 
 void Acquirer::Stop()

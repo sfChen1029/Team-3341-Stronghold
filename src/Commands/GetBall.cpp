@@ -8,16 +8,16 @@ GetBall::GetBall()
 
 void GetBall::Initialize()
 {
-//	if(!acquirer->DetectBall())
+	if(!acquirer->DetectBall())
 	acquirer->Enable();
 }
 
 void GetBall::Execute()
 {
     acquirer->BallIn();
-//
-//    if(acquirer->DetectBall())
-//    	acquirer->Disable();
+
+    if(acquirer->DetectBall())
+    	acquirer->Disable();
 }
 
 bool GetBall::IsFinished()

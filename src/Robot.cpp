@@ -19,6 +19,17 @@ class Robot: public IterativeRobot
             autonomousCommand = new AutonomousProgram();
             lw = LiveWindow::GetInstance();
            // arm = new MoveArm();
+            //CameraServer::GetInstance()->SetQuality(500);
+            				////the camera name (ex "cam0") can be found through the roborio web interface
+//            			    CameraServer::GetInstance()->StartAutomaticCapture("cam0");
+//            			    CameraServer::GetInstance()->SetQuality(1500);
+//            			    std::shared_ptr<USBCamera> usbCamptr = CameraServer::GetInstance()->m_camera;//(new USBCamera("cam1",true));
+//            			    if(usbCamptr!=nullptr)
+//            			    {
+//            			    	usbCamptr->SetBrightness(2);
+//            			    	usbCamptr->SetExposureAuto();
+//            			    }
+
         }
 
         void DisabledPeriodic()
@@ -50,8 +61,16 @@ class Robot: public IterativeRobot
         {
             SmartDashboard::PutNumber("IR Analog Input", CommandBase::acquirer->GetInput());
             SmartDashboard::PutBoolean("Ball Loaded", CommandBase::acquirer->DetectBall());
-
+            SmartDashboard::PutNumber("Right Encoder distance", CommandBase::drive->GetRightEncoderDistance());
+            SmartDashboard::PutNumber("Left Encoder distance", CommandBase::drive->GetLeftEncoderDistance());
             Scheduler::GetInstance()->Run();
+//
+//            while (IsOperatorControl() && IsEnabled())
+//            		{
+//            		Scheduler::GetInstance()->Run();
+//            			Wait(0.005);				// wait for a motor update time
+//            		}
+
         }
 
         void TestPeriodic()

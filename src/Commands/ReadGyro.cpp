@@ -1,38 +1,38 @@
-#include "ReadLeftUltra.h"
+#include "ReadGyro.h"
 
-ReadLeftUltra::ReadLeftUltra()
+ReadGyro::ReadGyro()
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 }
 
 // Called just before this Command runs the first time
-void ReadLeftUltra::Initialize()
+void ReadGyro::Initialize()
 {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ReadLeftUltra::Execute()
+void ReadGyro::Execute()
 {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ReadLeftUltra::IsFinished()
+bool ReadGyro::IsFinished()
 {
 	return false;
 }
 
 // Called once after isFinished returns true
-void ReadLeftUltra::End()
+void ReadGyro::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ReadLeftUltra::Interrupted()
+void ReadGyro::Interrupted()
 {
 
 }

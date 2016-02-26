@@ -31,6 +31,9 @@ class Drive: public Subsystem
         void ResetEncoders();
         void getAccelerations(double* x, double* y, double* z);
 
+        double GetRightEncoderDistance();
+        double GetLeftEncoderDistance();
+
         void InitDefaultCommand();
 };
 

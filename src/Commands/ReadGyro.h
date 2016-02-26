@@ -1,13 +1,13 @@
-#ifndef ReadLeftUltra_H
-#define ReadLeftUltra_H
+#ifndef ReadGyro_H
+#define ReadGyro_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class ReadLeftUltra: public CommandBase
+class ReadGyro: public CommandBase
 {
 public:
-	ReadLeftUltra();
+	ReadGyro();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

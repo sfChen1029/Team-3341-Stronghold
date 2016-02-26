@@ -131,3 +131,13 @@ void Drive::InitDefaultCommand()
 {
     SetDefaultCommand(new ArcadeDrive());
 }
+
+double Drive::GetLeftEncoderDistance()
+{
+	return this->eLeft->GetDistance();
+}
+
+double Drive::GetRightEncoderDistance()
+{
+	return -this->eRight->GetDistance();
+}
