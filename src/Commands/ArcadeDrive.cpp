@@ -5,45 +5,32 @@ ArcadeDrive::ArcadeDrive()
 {
     Requires(drive);
     Requires(gyro);
+    anglePid = new NewPIDController(.05, 0, 0, 0, false);
 }
 
 void ArcadeDrive::Initialize()
 {
     gyro->ResetGyro();
-    anglePid = new NewPIDController(.05, 0, 0, 0, false);
 }
 
 void ArcadeDrive::Execute()
 {
+    double rotRaw = oi->getDriveStick()->GetZ();
+    double yRaw = oi->getDriveStick()->GetY();
+    double yAdjusted = mapToCubic(0.7, 0, yRaw);
+
     // Joystick is turning, turn normally
-    if(fabs(oi->getDriveStick()->GetZ()) >= 0.05)
+    if(fabs(rotRaw) >= 0.05)
     {
+    	// Flag the gyro for reseting next time we try to drive straight
         isReset = false;
-        double x = oi->getDriveStick()->GetZ();
-        double a = 0.7;
-        double b = 0;
-        double control;
 
-        // Use Cubic Function to make turning more smooth if getRotationCurve() is true (can be disabled with joystick button)
-        if(drive->getRotationCurve())
-        {
-            if(x > 0)
-                control = b + (1 - b) * ((a * pow(x, 3) + (1 - a) * x));
-            else
-                control = -b + (1 - b) * ((a * pow(x, 3) + (1 - a) * x));
-        }
-        else
-        {
-            control = x;
-        }
-
-        drive->arcadeDrive(-oi->getDriveStick()->GetY(), -control);
+		double rotAdjusted = mapToCubic(0.35, 0, rotRaw);
+        drive->arcadeDrive(-yAdjusted, -rotAdjusted);
     }
     else // Joystick is straight, use Gyro to drive straight
     {
-    	double angle = gyro-> GetAngle();
-    	double correctedAngleSignal = anglePid->Tick(angle);
-    	drive -> arcadeDrive(.05, correctedAngleSignal);
+        // Reset the Gyro sensor once only
         if(!isReset)
         {
             drive->arcadeDrive(0, 0);
@@ -52,11 +39,15 @@ void ArcadeDrive::Execute()
             gyro->ResetGyro();
         }
 
+    	double angle = gyro->GetAngle();
+    	double correctedAngleSignal = anglePid->Tick(angle);
+        // TODO: the line below was here, do we need it?
+    	//drive->arcadeDrive(.05, correctedAngleSignal);
+
         // Feed the angle from the Gyro into the PID loop; use returned value from PID loop to drive straight
-        if(fabs(oi->getDriveStick()->GetY()) >= .05)
+        if(fabs(yRaw) >= .05)
         {
-            drive->arcadeDrive(-oi->getDriveStick()->GetY(),
-                               anglePid->Tick(gyro->GetAngle()));
+            drive->arcadeDrive(-yAdjusted, correctedAngleSignal);
         }
         else
         {
@@ -64,6 +55,19 @@ void ArcadeDrive::Execute()
             drive->arcadeDrive(0, 0);
         }
     }
+}
+
+// Takes an input signal and maps it to a cubic output (for more precise driving)
+double ArcadeDrive::mapToCubic(double a, double b, double signal)
+{
+    double control;
+
+    if(signal > 0)
+        control = b + (1 - b) * ((a * pow(signal, 3) + (1 - a) * signal));
+    else
+        control = -b + (1 - b) * ((a * pow(signal, 3) + (1 - a) * signal));
+
+    return control;
 }
 
 bool ArcadeDrive::IsFinished()

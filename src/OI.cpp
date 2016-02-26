@@ -4,7 +4,6 @@
 #include "Commands/ShootBall.h"
 #include "Commands/StopAcquirer.h"
 #include "Commands/GetBall.h"
-#include "Commands/ToggleRotationCurve.h"
 #include "CommandBase.h"
 
 /*
@@ -24,9 +23,6 @@
 OI::OI() :
     driveStick(new Joystick(DRIVESTICK)), operatorStick(new Joystick(OPERATORSTICK))
 {
-    Button* toggleRotationCurve = new JoystickButton(driveStick, 5);
-    toggleRotationCurve->WhenPressed(new ToggleRotationCurve());
-
     Button* toggleReverse = new JoystickButton(driveStick, 13);
     toggleReverse->WhenPressed(new DriveReverse());
     toggleReverse->WhenReleased(new DriveForward());

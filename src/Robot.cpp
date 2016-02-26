@@ -2,6 +2,7 @@
 #include "Commands/Command.h"
 #include "Commands/MoveArm.h"
 #include "Commands/AutonomousProgram.h"
+#include "Commands/TurnAndDrive.h"
 #include "CommandBase.h"
 #include <stdint.h>
 #include <Subsystems/Acquirer.h>
@@ -10,6 +11,8 @@ class Robot: public IterativeRobot
 {
     private:
         AutonomousProgram* autonomousCommand;
+        // TESTING ENCODERS with TurnAndDrive, will be removed later
+        TurnAndDrive* driveCommand;
         LiveWindow* lw;
         //Command* arm;
 
@@ -17,6 +20,8 @@ class Robot: public IterativeRobot
         {
             CommandBase::init();
             autonomousCommand = new AutonomousProgram();
+            // Distance SetPoint: 3 Feet
+            driveCommand = new TurnAndDrive(3.0, 0.0);
             lw = LiveWindow::GetInstance();
            // arm = new MoveArm();
             //CameraServer::GetInstance()->SetQuality(500);
@@ -39,8 +44,8 @@ class Robot: public IterativeRobot
 
         void AutonomousInit()
         {
-            if(autonomousCommand != NULL)
-                autonomousCommand->Start();
+            if(driveCommand != NULL)
+                driveCommand->Start();
         }
 
         void AutonomousPeriodic()

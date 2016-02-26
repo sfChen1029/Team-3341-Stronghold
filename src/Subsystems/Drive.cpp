@@ -8,13 +8,12 @@
 
 Drive::Drive() :
     Subsystem("Drive"), left(new Talon(DRIVE_LEFT)), right(new Talon(DRIVE_RIGHT)),
-    eLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
-    eRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
-    rotationCurve(true)
-
+    encoderLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
+    encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
+	ticksToDistance(114) // 112 < ticksToDistance < 117
 {
-    eLeft->SetDistancePerPulse(1.0);
-    eRight->SetDistancePerPulse(1.0);
+    encoderLeft->SetDistancePerPulse(1.0);
+    encoderRight->SetDistancePerPulse(1.0);
 }
 
 void Drive::setMult(float m)
@@ -29,12 +28,12 @@ int Drive::getMult()
 
 void Drive::ResetEncoders()
 {
-    eLeft->Reset();
-    eRight->Reset();
+    encoderLeft->Reset();
+    encoderRight->Reset();
 }
 
-//void Drive::arcadeDrive(float moveValue, float rotateValue)
-void Drive::arcadeDrive(float rotateValue, float moveValue)
+void Drive::arcadeDrive(float moveValue, float rotateValue)
+//void Drive::arcadeDrive(float rotateValue, float moveValue)
 
 {
     float leftMotorOutput;
@@ -72,7 +71,7 @@ void Drive::arcadeDrive(float rotateValue, float moveValue)
     }
 
     float limitedL = Drive::Limit(leftMotorOutput, 1.0);
-    float limitedR = Drive::Limit(rightMotorOutput, 1.0);
+    float limitedR = -Drive::Limit(rightMotorOutput, 1.0);
 
     left->Set(-limitedL);
     right->Set(-limitedR);
@@ -89,14 +88,14 @@ float Drive::Limit(float num, float max)
     return num;
 }
 
+// Return distance in feet
 double Drive::GetDistance()
 {
     // Average of both encoders (must negate to get proper direction)
-    // TODO: test to see if negation is necessary
     return 
     (
-        (double) ((eLeft->Get()) / 1090.0) -
-        (double) ((eRight->Get()) / 1090.0)
+        (double) ((encoderLeft->Get()) / ticksToDistance) -
+        (double) ((encoderRight->Get()) / ticksToDistance)
     ) / -2.0;
 }
 
@@ -106,25 +105,17 @@ double Drive::GetRate()
     // TODO: test to see if negation is necessary
     return 
     (
-        (double) ((eLeft->GetRate()) / 1090.0) - 
-        (double) ((eRight->GetRate()) / 1090.0)
+        (double) ((encoderLeft->GetRate()) / ticksToDistance) -
+        (double) ((encoderRight->GetRate()) / ticksToDistance)
     ) / -2.0;
                  
 }
 
-void Drive::toggleRotationCurve()
-{
-    rotationCurve = !rotationCurve;
-}
-
-bool Drive::getRotationCurve()
-{
-    return rotationCurve;
-}
-
 void Drive::getAccelerations(double* x, double* y, double* z)
 {
-
+	*x = accel->GetX();
+	*y = accel->GetY();
+	*z = accel->GetZ();
 }
 
 void Drive::InitDefaultCommand()
@@ -134,10 +125,10 @@ void Drive::InitDefaultCommand()
 
 double Drive::GetLeftEncoderDistance()
 {
-	return this->eLeft->GetDistance();
+	return this->encoderLeft->GetDistance();
 }
 
 double Drive::GetRightEncoderDistance()
 {
-	return -this->eRight->GetDistance();
+	return -this->encoderRight->GetDistance();
 }

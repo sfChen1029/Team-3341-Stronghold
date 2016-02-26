@@ -13,7 +13,7 @@ void TurnAndDrive::Initialize()
     SetTimeout(2.2);
     drive->ResetEncoders();
     gyro->ResetGyro();
-    distancePid = new NewPIDController(1.0, 0.05, 0.0, distance, true);
+    distancePid = new NewPIDController(0.15, 0.0, 0.0, distance, false);
     anglePid = new NewPIDController(0.03, 1e-3, 0, angle, false);
 }
 
@@ -38,7 +38,7 @@ bool TurnAndDrive::IsFinished()
         (
             (fabs(distancePid->GetError()) < 0.005)
             && (fabs(anglePid->GetError()) < 0.5) 
-            && (fabs(drive->GetRate()) < 1e-3)
+            //&& (fabs(drive->GetRate()) < 1e-3)
         )
         || IsTimedOut()
     );
