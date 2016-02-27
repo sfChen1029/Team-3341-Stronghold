@@ -28,7 +28,7 @@ void WallFollow::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void WallFollow::Execute()
 {
-	double tickedRotValue = pid->Tick(ultraSonic->ReadRightUltra());
+	double tickedRotValue = pid->Tick(ultraSonic->ReadUltra(UltraSoundTester::RIGHTSENSOR));
     drive->arcadeDrive(this->DRIVE_SPEED, tickedRotValue);
 }
 
