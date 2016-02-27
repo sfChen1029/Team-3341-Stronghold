@@ -24,16 +24,16 @@ class Robot: public IterativeRobot
             driveCommand = new TurnAndDrive(3.0, 0.0);
             lw = LiveWindow::GetInstance();
            // arm = new MoveArm();
-            //CameraServer::GetInstance()->SetQuality(500);
-            				////the camera name (ex "cam0") can be found through the roborio web interface
-//            			    CameraServer::GetInstance()->StartAutomaticCapture("cam0");
-//            			    CameraServer::GetInstance()->SetQuality(1500);
-//            			    std::shared_ptr<USBCamera> usbCamptr = CameraServer::GetInstance()->m_camera;//(new USBCamera("cam1",true));
-//            			    if(usbCamptr!=nullptr)
-//            			    {
-//            			    	usbCamptr->SetBrightness(2);
-//            			    	usbCamptr->SetExposureAuto();
-//            			    }
+            CameraServer::GetInstance()->SetQuality(500);
+            				//the camera name (ex "cam0") can be found through the roborio web interface
+            			    CameraServer::GetInstance()->StartAutomaticCapture("cam0");
+            			    CameraServer::GetInstance()->SetQuality(1500);
+            			    std::shared_ptr<USBCamera> usbCamptr = CameraServer::GetInstance()->m_camera;//(new USBCamera("cam1",true));
+            			    if(usbCamptr!=nullptr)
+            			    {
+            			    	usbCamptr->SetBrightness(2);
+            			    	usbCamptr->SetExposureAuto();
+            			    }
 
         }
 
@@ -68,6 +68,8 @@ class Robot: public IterativeRobot
             SmartDashboard::PutBoolean("Ball Loaded", CommandBase::acquirer->DetectBall());
             SmartDashboard::PutNumber("Right Encoder distance", CommandBase::drive->GetRightEncoderDistance());
             SmartDashboard::PutNumber("Left Encoder distance", CommandBase::drive->GetLeftEncoderDistance());
+            SmartDashboard::PutNumber("Driver Slider Value", CommandBase::oi->getDriveStick()->GetThrottle());
+            CommandBase::ultraSonic->PrintUltraValues();
             Scheduler::GetInstance()->Run();
 //
 //            while (IsOperatorControl() && IsEnabled())

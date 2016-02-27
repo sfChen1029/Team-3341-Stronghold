@@ -30,9 +30,8 @@ void UltraSoundTester::InitDefaultCommand()
 
 }
 
-void  UltraSoundTester::ReadLeftUltra()
+void UltraSoundTester::PrintUltraValues()
 {
-	//sensors[0]->Ping();
     double range = sensors[0]-> GetRangeInches();
     	std::cout << "left sensor (inches):  " << range  << std::endl;
     double range1 = sensors[1]-> GetRangeInches();
@@ -40,6 +39,28 @@ void  UltraSoundTester::ReadLeftUltra()
     double range2 = sensors[2] -> GetRangeInches();
     	std::cout << "right sensor (inches):  " << range2  << std::endl;
 
+    	SmartDashboard::PutNumber("Ultrasonic 1", range);
+    	SmartDashboard::PutNumber("Ultrasonic 2", range1);
+    	SmartDashboard::PutNumber("Ultrasonic 3", range2);
+}
 
+double  UltraSoundTester::ReadLeftUltra()
+{
+	//sensors[0]->Ping();
+    double range = sensors[0]-> GetRangeInches();
+
+    	return range;
+}
+
+double UltraSoundTester::ReadRightUltra()
+{
+	double value = sensors[1]-> GetRangeInches();
+	return value;
+}
+
+double UltraSoundTester::ReadFrontUltra()
+{
+	double value = sensors[2] -> GetRangeInches();
+	return value;
 }
 

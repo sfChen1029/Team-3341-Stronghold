@@ -32,10 +32,17 @@ OI::OI() :
     shootBall->WhenPressed(new ShootBall());
     shootBall->WhenReleased(new StopAcquirer());
 
-    // Hold down button 8 on operator stick to get ball
-    Button* getBall = new JoystickButton(driveStick, 2);
+    // Hold down button 3 on operator stick to get ball
+    // for right handed drivers
+    Button* getBall = new JoystickButton(driveStick, 3);
     getBall->WhenPressed(new GetBall());
     getBall->WhenReleased(new StopAcquirer());
+
+    // Hold down button 4 on operator stick to get ball
+    // for left handed drivers
+    Button* getBall2 = new JoystickButton(driveStick, 4);
+    getBall2->WhenPressed(new GetBall());
+    getBall2->WhenReleased(new StopAcquirer());
 
     // Press button 8 on operator stick to stop Acquirer
     Button* stopBall = new JoystickButton(operatorStick, 8);

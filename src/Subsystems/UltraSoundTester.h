@@ -21,8 +21,10 @@ private:
 public:
 	UltraSoundTester();
 	void InitDefaultCommand();
-	void
-	ReadLeftUltra();
+	double ReadLeftUltra();
+	double ReadRightUltra();
+	double ReadFrontUltra();
+	void PrintUltraValues();
 };
 
 #endif
