@@ -23,13 +23,13 @@ void Acquirer::Disable()
 void Acquirer::BallOut()
 {
     if(enabled)
-        motor->SetSpeed(1);
+        motor->SetSpeed(-1);
 }
 
 void Acquirer::BallIn()
 {
     if(enabled)
-        motor->SetSpeed(-1);
+        motor->SetSpeed(0.6);
 }
 
 void Acquirer::Stop()
