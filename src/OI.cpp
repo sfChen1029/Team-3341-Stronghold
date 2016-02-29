@@ -1,6 +1,7 @@
 #include "OI.h"
 #include "Commands/DriveReverse.h"
 #include "Commands/DriveForward.h"
+#include "Commands/TurnAndDrive.h"
 #include "Commands/ShootBall.h"
 #include "Commands/StopAcquirer.h"
 #include "Commands/GetBall.h"
@@ -23,16 +24,19 @@
 OI::OI() :
     driveStick(new Joystick(DRIVESTICK)), operatorStick(new Joystick(OPERATORSTICK))
 {
+    Button* turn180Button = new JoystickButton(driveStick, 14);
+    turn180Button->WhenPressed(new TurnAndDrive(0.0, 90));
+
     Button* toggleReverse = new JoystickButton(driveStick, 13);
     toggleReverse->WhenPressed(new DriveReverse());
     toggleReverse->WhenReleased(new DriveForward());
 
-    // Hold down button 10 on operator stick to shoot ball
+    // Hold down trigger on drive stick to shoot ball
     Button* shootBall = new JoystickButton(driveStick, 1);
     shootBall->WhenPressed(new ShootBall());
     shootBall->WhenReleased(new StopAcquirer());
 
-    // Hold down button 3 on operator stick to get ball
+    // Hold down button 3/4 on drive stick to get ball
     // for right handed drivers
     Button* getBall = new JoystickButton(driveStick, 3);
     getBall->WhenPressed(new GetBall());

@@ -18,7 +18,6 @@ UltraSoundTester::UltraSoundTester() :
 
 void UltraSoundTester::InitDefaultCommand()
 {
-
 }
 
 void UltraSoundTester::PrintUltraValues()

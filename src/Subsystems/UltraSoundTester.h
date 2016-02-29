@@ -7,7 +7,7 @@
 class UltraSoundTester: public Subsystem
 {
     private:
-        const uint16_t MAX_ULTRASONIC = 3;
+        const uint16_t NUM_ULTRASONICS = 3;
         const uint32_t FRONT_ECHO_INPUT_PIN = 4;
 		const uint32_t FRONT_TRIGGER_OUTPUT_PIN = 5;
 		const uint32_t RIGHT_ECHO_INPUT_PIN = 6;

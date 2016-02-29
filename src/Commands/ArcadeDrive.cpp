@@ -25,7 +25,7 @@ void ArcadeDrive::Execute()
     	// Flag the gyro for reseting next time we try to drive straight
         isReset = false;
 
-		double rotAdjusted = mapToCubic(0.7, 0, rotRaw);
+		double rotAdjusted = mapToCubic(0.3, 0, rotRaw);
         drive->arcadeDrive(-yAdjusted, -rotAdjusted);
     }
     else // Joystick is straight, use Gyro to drive straight
