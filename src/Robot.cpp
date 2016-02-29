@@ -23,17 +23,18 @@ class Robot: public IterativeRobot
             // Distance SetPoint: 3 Feet
             driveCommand = new TurnAndDrive(3.0, 0.0);
             lw = LiveWindow::GetInstance();
-           // arm = new MoveArm();
+            // arm = new MoveArm();
             CameraServer::GetInstance()->SetQuality(500);
-            				//the camera name (ex "cam0") can be found through the roborio web interface
-            			    CameraServer::GetInstance()->StartAutomaticCapture("cam0");
-            			    CameraServer::GetInstance()->SetQuality(1500);
-            			    std::shared_ptr<USBCamera> usbCamptr = CameraServer::GetInstance()->m_camera;//(new USBCamera("cam1",true));
-            			    if(usbCamptr!=nullptr)
-            			    {
-            			    	usbCamptr->SetBrightness(2);
-            			    	usbCamptr->SetExposureAuto();
-            			    }
+            //the camera name (ex "cam0") can be found through the roborio web interface
+            CameraServer::GetInstance()->StartAutomaticCapture("cam0");
+            CameraServer::GetInstance()->SetQuality(1500);
+            std::shared_ptr<USBCamera> usbCamptr =
+                    CameraServer::GetInstance()->m_camera; //(new USBCamera("cam1",true));
+            if (usbCamptr != nullptr)
+            {
+                usbCamptr->SetBrightness(2);
+                usbCamptr->SetExposureAuto();
+            }
 
         }
 
@@ -44,8 +45,7 @@ class Robot: public IterativeRobot
 
         void AutonomousInit()
         {
-            if(driveCommand != NULL)
-                driveCommand->Start();
+            if (driveCommand != NULL) driveCommand->Start();
         }
 
         void AutonomousPeriodic()
@@ -55,29 +55,26 @@ class Robot: public IterativeRobot
 
         void TeleopInit()
         {
-            if(autonomousCommand != NULL)
-                autonomousCommand->Cancel();
+            if (autonomousCommand != NULL) autonomousCommand->Cancel();
             CommandBase::drive->ResetEncoders();
             CommandBase::gyro->ResetGyro();
-           // arm->Start();
+            // arm->Start();
         }
 
         void TeleopPeriodic()
         {
-            SmartDashboard::PutNumber("IR Analog Input", CommandBase::acquirer->GetInput());
-            SmartDashboard::PutBoolean("Ball Loaded", CommandBase::acquirer->DetectBall());
-            SmartDashboard::PutNumber("Right Encoder distance", CommandBase::drive->GetRightEncoderDistance());
-            SmartDashboard::PutNumber("Left Encoder distance", CommandBase::drive->GetLeftEncoderDistance());
-            SmartDashboard::PutNumber("Driver Slider Value", CommandBase::oi->getDriveStick()->GetThrottle());
+            SmartDashboard::PutNumber("IR Analog Input",
+                    CommandBase::acquirer->GetInput());
+            SmartDashboard::PutBoolean("Ball Loaded",
+                    CommandBase::acquirer->DetectBall());
+            SmartDashboard::PutNumber("Right Encoder distance",
+                    CommandBase::drive->GetRightEncoderDistance());
+            SmartDashboard::PutNumber("Left Encoder distance",
+                    CommandBase::drive->GetLeftEncoderDistance());
+            SmartDashboard::PutNumber("Driver Slider Value",
+                    CommandBase::oi->getDriveStick()->GetThrottle());
             CommandBase::ultraSonic->PrintUltraValues();
             Scheduler::GetInstance()->Run();
-//
-//            while (IsOperatorControl() && IsEnabled())
-//            		{
-//            		Scheduler::GetInstance()->Run();
-//            			Wait(0.005);				// wait for a motor update time
-//            		}
-
         }
 
         void TestPeriodic()
