@@ -18,7 +18,6 @@ class Robot: public IterativeRobot
         WallFollow* wallFollowCommand;
 
         LiveWindow* lw;
-        //Command* arm;
 
         void RobotInit()
         {
@@ -27,30 +26,25 @@ class Robot: public IterativeRobot
             autonomousCommand = new LowBarAutonomous();
 
             // Try to maintain the distance from the wal constant
-            double distanceFromWall = CommandBase::ultraSonic->ReadUltra(CommandBase::ultraSonic->LEFTSENSOR);
-            wallFollowCommand = new WallFollow(distanceFromWall, 6.0, CommandBase::ultraSonic->LEFTSENSOR);
+            double distanceFromWall = CommandBase::ultraSonic->ReadUltra(
+                    CommandBase::ultraSonic->LEFTSENSOR);
+            wallFollowCommand = new WallFollow(distanceFromWall, 6.0,
+                    CommandBase::ultraSonic->LEFTSENSOR);
 
             // Distance SetPoint: 3 Feet
             driveCommand = new TurnAndDrive(3.0, 0.0);
 
-
             lw = LiveWindow::GetInstance();
-            // arm = new MoveArm();
-            if(CameraServer::GetInstance() != NULL)
+            //the camera name (ex "cam0") can be found through the roborio web interface
+            CameraServer::GetInstance()->StartAutomaticCapture("cam0");
+            CameraServer::GetInstance()->SetQuality(1500);
+            std::shared_ptr<USBCamera> usbCamptr =
+                    CameraServer::GetInstance()->m_camera; //(new USBCamera("cam1",true));
+            if (usbCamptr != nullptr)
             {
-                CameraServer::GetInstance()->SetQuality(500);
-                //the camera name (ex "cam0") can be found through the roborio web interface
-                CameraServer::GetInstance()->StartAutomaticCapture("cam0");
-                CameraServer::GetInstance()->SetQuality(1500);
-                std::shared_ptr<USBCamera> usbCamptr =
-                        CameraServer::GetInstance()->m_camera; //(new USBCamera("cam1",true));
-                if (usbCamptr != nullptr)
-                {
-                    usbCamptr->SetBrightness(2);
-                    usbCamptr->SetExposureAuto();
-                }
+                usbCamptr->SetBrightness(2);
+                usbCamptr->SetExposureAuto();
             }
-
         }
 
         void DisabledPeriodic()
@@ -60,7 +54,8 @@ class Robot: public IterativeRobot
 
         void AutonomousInit()
         {
-            if (autonomousCommand != NULL) autonomousCommand->Start();
+            if (autonomousCommand != NULL)
+                autonomousCommand->Start();
         }
 
         void AutonomousPeriodic()
@@ -70,7 +65,8 @@ class Robot: public IterativeRobot
 
         void TeleopInit()
         {
-            if (autonomousCommand != NULL) autonomousCommand->Cancel();
+            if (autonomousCommand != NULL)
+                autonomousCommand->Cancel();
             CommandBase::drive->ResetEncoders();
             CommandBase::gyro->ResetGyro();
             // arm->Start();
