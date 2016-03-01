@@ -1,6 +1,5 @@
 # FRC-3341-Stronghold
 
-
 ## Option 16 Competition Code for 2016 FRC Stroghold
 
 ### Autonomous Mode
@@ -10,9 +9,13 @@
 #### Controls
 
 ##### Drive Stick
+* Stick Forward/Backward = Drive Forwards/Backwards
+* Rotate Stick Left/Right = Rotated Robot Left/Right
 
 ##### Operater Stick
-
+* Stick Forward/Backward = Arm Forward/Backward
+* Buttons on Top = Pull in Ball
+* Trigger = Shoot Ball
 
 ## Contributers
 * Garrison Astaunda
