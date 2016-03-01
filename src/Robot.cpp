@@ -26,7 +26,7 @@ class Robot: public IterativeRobot
             autonomousCommand = new AutonomousProgram();
             // Distance SetPoint: 3 Feet
             driveCommand = new TurnAndDrive(3.0, 0.0);
-            wallFollowCommand = new WallFollow(20, 6);
+            wallFollowCommand = new WallFollow(20, 6.0);
 
 
             lw = LiveWindow::GetInstance();

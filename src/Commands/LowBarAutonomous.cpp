@@ -1,65 +1,85 @@
+#include "Commands/TurnAndDrive.h"
 #include <Commands/LowBarAutonomous.h>
 
-LowBar::LowBar()
+LowBar::LowBar() :
+    zf(0), zi(0), xinit(0), yinit(0), zinit(0),
+    driveDistance(new TurnAndDrive(6.0, 0.0)),
+    BREACHINGLOWBAR(0), WALLFOLLOWING(1), AUTONOMOUSDONE(3)
 {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(chassis);
-	Requires(drive);
-	//Requires(gyro);
-	//acc = new BuiltInAccelerometer();
-	up = false;
-	upndown = false;
+    mode = BREACHINGLOWBAR;
+    Requires(drive);
+    up = false;
+    upndown = false;
 }
 
-// Called just before this Command runs the first time
 void LowBar::Initialize()
 {
-	//drive->ResetEncoders();
-	//drive->getAccel()->
-	std::cout<<"iiiiiiiinnnnnnnniiiiiiitttttt"<<std::endl;
-	drive->getAccelerations(&xinit,&yinit,&zinit);
-		zf = 0;//acc->GetZ();
-		zi = 0;
+    drive->ResetEncoders();
+    std::cout << "iiiiiiiinnnnnnnniiiiiiitttttt" << std::endl;
+    drive->getAccelerations(&xinit, &yinit, &zinit);
 }
 
-// Called repeatedly when this Command is scheduled to run
 void LowBar::Execute()
 {
-	drive->getAccelerations(&xinit,&yinit,&zinit);
-	drive->arcadeDrive(0.35, 0);
-	if(zinit>1.5 || zinit<0.5)
-	{
-		int i = zf;
-		zi = i;
-		if(up)
-			upndown = true;
-	}
-	if(!up)
-	{
-		if(zf-zi>=50)
-			up = true;
-	}
-	std::cout<<xinit<<" "<<yinit<<" "<<zinit<<std::endl;
-	zf++;
+    switch(mode)
+    {
+        // TODO: BAD STYLE, GET THE CONSTANTS TO WORK
+        case 0:
+            breachLowBar();
+            break;
+        case 1:
+            followWall();
+            break;
+    }
 }
 
-// Make this return true when this Command no longer needs to run execute()
+void LowBar::breachLowBar()
+{
+    drive->getAccelerations(&xinit, &yinit, &zinit);
+    drive->arcadeDrive(0.15, 0);
+    if (zinit > 1.5 || zinit < 0.5)
+    {
+        int i = zf;
+        zi = i;
+        if (up)
+            upndown = true;
+    }
+    if (!up)
+    {
+        if (zf - zi >= 50)
+            up = true;
+    }
+    std::cout << xinit << " " << yinit << " " << zinit << std::endl;
+    zf++;
+
+    // Finished breaching low bar, now follow the wall
+    if(upndown || zf > 2000000)
+    {
+        drive->ResetEncoders();
+        // TODO: switch AUTONOMOUSDONE to WALLFOLLOW once BREACHLOWBAR works
+        mode = AUTONOMOUSDONE;
+    }
+}
+
+void LowBar::followWall()
+{
+    driveDistance->Execute();
+
+    if(driveDistance->IsFinished())
+        mode = AUTONOMOUSDONE;
+}
+
 bool LowBar::IsFinished()
 {
-	return upndown || zf>2000000;
+    return mode == 3;
 }
 
-// Called once after isFinished returns true
 void LowBar::End()
 {
-	//delete acc;
-	std::cout<<"Done!"<<std::endl;
-	drive->arcadeDrive(0,0);
+    std::cout << "Done!" << std::endl;
+    drive->arcadeDrive(0, 0);
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void LowBar::Interrupted()
 {
-
 }

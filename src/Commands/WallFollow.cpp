@@ -1,37 +1,39 @@
 #include "WallFollow.h"
 #include "ArcadeDrive.h"
 
-WallFollow::WallFollow()
+// distanceToWall in inches, distanceToTarget in feet
+WallFollow::WallFollow(double distanceFromWall, double distanceToTarget) :
+    DISTANCE_FROM_WALL(distanceFromWall), DISTANCE_TO_TARGET(distanceToTarget)
 {
     Requires(ultraSonic);
     Requires(drive);
 
-    DISTANCE_FROM_WALL = 200;
-    DISTANCE_TO_TARGET = 200;
-    DRIVE_SPEED = 0.1;
-
-    double kp = 0.0001;
-    double ki = 0.0001;
-    double kd = 0;
-    int setpoint = DISTANCE_FROM_WALL;
-    bool integralThreshold = false;
-    wallDistPID = new NewPIDController(kp, ki, kd, setpoint, integralThreshold);
+    wallDistPID = new NewPIDController(0.01, 0, 0, distanceFromWall, false);
+    distTravelledPID = new NewPIDController(0.15, 0, 0, distanceToTarget, false);
 }
 
 void WallFollow::Initialize()
 {
+    drive->ResetEncoders();
 }
 
 void WallFollow::Execute()
 {
-    double tickedRotValue = wallDistPID->Tick(
-            ultraSonic->ReadUltra(UltraSoundTester::RIGHTSENSOR));
-    drive->arcadeDrive(DRIVE_SPEED, tickedRotValue);
+    double distTravelledPV = drive->GetDistance();
+    double distFromWallPV = ultraSonic->ReadUltra(UltrasonicSensors::RIGHTSENSOR);
+
+    std::cout << "Distance Travelled: " << distTravelledPV;
+    std::cout << "Distance From Wall: " << distFromWallPV;
+
+    double distTravelledOutput = distTravelledPID->Tick(distTravelledPV);
+    double distFromWallOutput = wallDistPID->Tick(distFromWallPV);
+
+    drive->arcadeDrive(distTravelledOutput, distFromWallOutput);
 }
 
 bool WallFollow::IsFinished()
 {
-    return drive->GetDistance() < DISTANCE_TO_TARGET;
+    return fabs(drive->GetDistance() - DISTANCE_TO_TARGET) < 0.1;
 }
 
 void WallFollow::End()
