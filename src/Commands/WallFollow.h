@@ -14,8 +14,10 @@ class WallFollow: public CommandBase
         // Distances in feet
         double DISTANCE_FROM_WALL;
         double DISTANCE_TO_TARGET;
+
+        int SENSORINUSE;
     public:
-        WallFollow(double distanceFromWall, double distanceToTarget);
+        WallFollow(double distanceFromWall, double distanceToTarget, int sensorToUse);
         void Initialize();
         void Execute();bool IsFinished();
         void End();

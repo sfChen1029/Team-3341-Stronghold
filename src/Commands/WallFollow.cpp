@@ -2,14 +2,14 @@
 #include "ArcadeDrive.h"
 
 // distanceToWall in inches, distanceToTarget in feet
-WallFollow::WallFollow(double distanceFromWall, double distanceToTarget) :
-    DISTANCE_FROM_WALL(distanceFromWall), DISTANCE_TO_TARGET(distanceToTarget)
+WallFollow::WallFollow(double distanceFromWall, double distanceToTarget, int sensorToUse) :
+    DISTANCE_FROM_WALL(distanceFromWall), DISTANCE_TO_TARGET(distanceToTarget), SENSORINUSE(sensorToUse)
 {
     Requires(ultraSonic);
     Requires(drive);
 
     wallDistPID = new NewPIDController(0.01, 0, 0, distanceFromWall, false);
-    distTravelledPID = new NewPIDController(0.15, 0, 0, distanceToTarget, false);
+    distTravelledPID = new NewPIDController(0.07, 0, 0, distanceToTarget, false);
 }
 
 void WallFollow::Initialize()
@@ -20,7 +20,7 @@ void WallFollow::Initialize()
 void WallFollow::Execute()
 {
     double distTravelledPV = drive->GetDistance();
-    double distFromWallPV = ultraSonic->ReadUltra(UltrasonicSensors::RIGHTSENSOR);
+    double distFromWallPV = ultraSonic->ReadUltra(SENSORINUSE);
 
     std::cout << "Distance Travelled: " << distTravelledPV;
     std::cout << "Distance From Wall: " << distFromWallPV;

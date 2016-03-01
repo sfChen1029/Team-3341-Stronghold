@@ -1,5 +1,6 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
+#include "Commands/LowBarAutonomous.h"
 #include "Commands/MoveArm.h"
 #include "Commands/AutonomousProgram.h"
 #include "Commands/TurnAndDrive.h"
@@ -12,7 +13,7 @@ class Robot: public IterativeRobot
 {
     private:
         // Autonomous testing commands
-        AutonomousProgram* autonomousCommand;
+        LowBarAutonomous* autonomousCommand;
         TurnAndDrive* driveCommand;
         WallFollow* wallFollowCommand;
 
@@ -23,24 +24,31 @@ class Robot: public IterativeRobot
         {
             CommandBase::init();
 
-            autonomousCommand = new AutonomousProgram();
+            autonomousCommand = new LowBarAutonomous();
+
+            // Try to maintain the distance from the wal constant
+            double distanceFromWall = CommandBase::ultraSonic->ReadUltra(CommandBase::ultraSonic->LEFTSENSOR);
+            wallFollowCommand = new WallFollow(distanceFromWall, 6.0, CommandBase::ultraSonic->LEFTSENSOR);
+
             // Distance SetPoint: 3 Feet
             driveCommand = new TurnAndDrive(3.0, 0.0);
-            wallFollowCommand = new WallFollow(20, 6.0);
 
 
             lw = LiveWindow::GetInstance();
             // arm = new MoveArm();
-            CameraServer::GetInstance()->SetQuality(500);
-            //the camera name (ex "cam0") can be found through the roborio web interface
-            CameraServer::GetInstance()->StartAutomaticCapture("cam0");
-            CameraServer::GetInstance()->SetQuality(1500);
-            std::shared_ptr<USBCamera> usbCamptr =
-                    CameraServer::GetInstance()->m_camera; //(new USBCamera("cam1",true));
-            if (usbCamptr != nullptr)
+            if(CameraServer::GetInstance() != NULL)
             {
-                usbCamptr->SetBrightness(2);
-                usbCamptr->SetExposureAuto();
+                CameraServer::GetInstance()->SetQuality(500);
+                //the camera name (ex "cam0") can be found through the roborio web interface
+                CameraServer::GetInstance()->StartAutomaticCapture("cam0");
+                CameraServer::GetInstance()->SetQuality(1500);
+                std::shared_ptr<USBCamera> usbCamptr =
+                        CameraServer::GetInstance()->m_camera; //(new USBCamera("cam1",true));
+                if (usbCamptr != nullptr)
+                {
+                    usbCamptr->SetBrightness(2);
+                    usbCamptr->SetExposureAuto();
+                }
             }
 
         }
@@ -52,7 +60,7 @@ class Robot: public IterativeRobot
 
         void AutonomousInit()
         {
-            if (wallFollowCommand != NULL) wallFollowCommand->Start();
+            if (autonomousCommand != NULL) autonomousCommand->Start();
         }
 
         void AutonomousPeriodic()

@@ -1,39 +1,36 @@
 #include "Commands/TurnAndDrive.h"
 #include <Commands/LowBarAutonomous.h>
 
-LowBar::LowBar() :
+LowBarAutonomous::LowBarAutonomous() :
     zf(0), zi(0), xinit(0), yinit(0), zinit(0),
-    driveDistance(new TurnAndDrive(6.0, 0.0)),
-    BREACHINGLOWBAR(0), WALLFOLLOWING(1), AUTONOMOUSDONE(3)
+    driveDistance(new TurnAndDrive(6.0, 0.0))
 {
-    mode = BREACHINGLOWBAR;
+    mode = breachModes::BREACHINGLOWBAR;
     Requires(drive);
     up = false;
     upndown = false;
 }
 
-void LowBar::Initialize()
+void LowBarAutonomous::Initialize()
 {
     drive->ResetEncoders();
-    std::cout << "iiiiiiiinnnnnnnniiiiiiitttttt" << std::endl;
     drive->getAccelerations(&xinit, &yinit, &zinit);
 }
 
-void LowBar::Execute()
+void LowBarAutonomous::Execute()
 {
     switch(mode)
     {
-        // TODO: BAD STYLE, GET THE CONSTANTS TO WORK
-        case 0:
+        case breachModes::BREACHINGLOWBAR:
             breachLowBar();
             break;
-        case 1:
+        case breachModes::WALLFOLLOWING:
             followWall();
             break;
     }
 }
 
-void LowBar::breachLowBar()
+void LowBarAutonomous::breachLowBar()
 {
     drive->getAccelerations(&xinit, &yinit, &zinit);
     drive->arcadeDrive(0.15, 0);
@@ -57,29 +54,29 @@ void LowBar::breachLowBar()
     {
         drive->ResetEncoders();
         // TODO: switch AUTONOMOUSDONE to WALLFOLLOW once BREACHLOWBAR works
-        mode = AUTONOMOUSDONE;
+        mode = breachModes::AUTONOMOUSDONE;
     }
 }
 
-void LowBar::followWall()
+void LowBarAutonomous::followWall()
 {
     driveDistance->Execute();
 
     if(driveDistance->IsFinished())
-        mode = AUTONOMOUSDONE;
+        mode = breachModes::AUTONOMOUSDONE;
 }
 
-bool LowBar::IsFinished()
+bool LowBarAutonomous::IsFinished()
 {
-    return mode == 3;
+    return mode == breachModes::AUTONOMOUSDONE;
 }
 
-void LowBar::End()
+void LowBarAutonomous::End()
 {
     std::cout << "Done!" << std::endl;
     drive->arcadeDrive(0, 0);
 }
 
-void LowBar::Interrupted()
+void LowBarAutonomous::Interrupted()
 {
 }

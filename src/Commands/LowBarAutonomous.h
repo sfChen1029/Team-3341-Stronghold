@@ -2,13 +2,14 @@
 #define BreachDefense_H
 
 #include "../CommandBase.h"
+#include "Commands/TurnAndDrive.h"
 #include "WPILib.h"
 //#include "GyroSubsystem.h"
 
-class LowBar: public CommandBase
+class LowBarAutonomous: public CommandBase
 {
     public:
-        LowBar();
+        LowBarAutonomous();
         void Initialize();
         void Execute();bool IsFinished();
         void End();
@@ -16,9 +17,7 @@ class LowBar: public CommandBase
 
     private:
         // consts for different sections of autonomous mode
-        int BREACHINGLOWBAR;
-        int WALLFOLLOWING;
-        int AUTONOMOUSDONE;
+        enum breachModes {BREACHINGLOWBAR = 0, WALLFOLLOWING, AUTONOMOUSDONE};
 
         bool up, upndown;
         double xinit, yinit, zinit;
