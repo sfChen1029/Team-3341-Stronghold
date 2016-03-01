@@ -7,14 +7,14 @@
 class Drive: public Subsystem
 {
     private:
+        int ticksToDistance;
+        float mult;
+
         Talon* left;
         Talon* right;
         Encoder* encoderLeft;
         Encoder* encoderRight;
         BuiltInAccelerometer* accel;
-
-        int ticksToDistance;
-        float mult; // Motor speed multiplier TODO: make cubic control for driving as well
 
     public:
         Drive();

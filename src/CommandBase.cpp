@@ -4,7 +4,7 @@
 Drive* CommandBase::drive = NULL;
 OI* CommandBase::oi = NULL;
 GyroSubsystem* CommandBase::gyro = NULL;
-UltraSoundTester* CommandBase::ultraSonic = NULL;
+UltrasonicSensors* CommandBase::ultraSonic = NULL;
 Acquirer* CommandBase::acquirer = NULL;
 Arm* CommandBase::arm = NULL;
 
@@ -23,7 +23,7 @@ void CommandBase::init()
     drive = new Drive();
     oi = new OI();
     gyro = new GyroSubsystem();
-	ultraSonic = new UltraSoundTester();
+	ultraSonic = new UltrasonicSensors();
 	acquirer = new Acquirer();
     arm = new Arm();
 }

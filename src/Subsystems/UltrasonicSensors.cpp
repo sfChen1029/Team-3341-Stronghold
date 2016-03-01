@@ -1,11 +1,11 @@
-#include "UltraSoundTester.h"
+#include <Subsystems/UltrasonicSensors.h>
 #include "../RobotMap.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 
-UltraSoundTester::UltraSoundTester() :
+UltrasonicSensors::UltrasonicSensors() :
         Subsystem("UltraSoundTester")
 {
     for (int i = 0; i < 3; i++)
@@ -16,11 +16,11 @@ UltraSoundTester::UltraSoundTester() :
     }
 }
 
-void UltraSoundTester::InitDefaultCommand()
+void UltrasonicSensors::InitDefaultCommand()
 {
 }
 
-void UltraSoundTester::PrintUltraValues()
+void UltrasonicSensors::PrintUltraValues()
 {
     std::string sensorNames[3] = {"front", "right", "left"};
     for(int i = 0; i < 3; i++)
@@ -31,7 +31,7 @@ void UltraSoundTester::PrintUltraValues()
     }
 }
 
-double  UltraSoundTester::ReadUltra(uint16_t sensorIndex)
+double  UltrasonicSensors::ReadUltra(uint16_t sensorIndex)
 {
 	return sensors[sensorIndex]-> GetRangeInches();
 }

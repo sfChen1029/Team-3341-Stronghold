@@ -10,7 +10,8 @@ Drive::Drive() :
     Subsystem("Drive"), left(new Talon(DRIVE_LEFT)), right(new Talon(DRIVE_RIGHT)),
     encoderLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
     encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
-	ticksToDistance(114) // 112 < ticksToDistance < 117
+	ticksToDistance(114), // 112 < ticksToDistance < 117
+	accel()
 {
     encoderLeft->SetDistancePerPulse(1.0);
     encoderRight->SetDistancePerPulse(1.0);
@@ -33,8 +34,6 @@ void Drive::ResetEncoders()
 }
 
 void Drive::arcadeDrive(float moveValue, float rotateValue)
-//void Drive::arcadeDrive(float rotateValue, float moveValue)
-
 {
     float leftMotorOutput;
     float rightMotorOutput;

@@ -4,7 +4,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-class UltraSoundTester: public Subsystem
+class UltrasonicSensors: public Subsystem
 {
     private:
         const uint16_t NUM_ULTRASONICS = 3;
@@ -22,7 +22,7 @@ class UltraSoundTester: public Subsystem
         const static uint16_t RIGHTSENSOR = 1;
         const static uint16_t LEFTSENSOR = 2;
 
-        UltraSoundTester();
+        UltrasonicSensors();
         void InitDefaultCommand();
         double ReadUltra(uint16_t sensorIndex);
         void PrintUltraValues();
