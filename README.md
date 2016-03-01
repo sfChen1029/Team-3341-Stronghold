@@ -11,11 +11,12 @@
 ##### Drive Stick
 * Stick Forward/Backward = Drive Forwards/Backwards
 * Rotate Stick Left/Right = Rotated Robot Left/Right
+* Buttons on Top = Pull in Ball
+* Trigger = Shoot Ball
 
 ##### Operater Stick
 * Stick Forward/Backward = Arm Forward/Backward
 * Buttons on Top = Pull in Ball
-* Trigger = Shoot Ball
 
 ## Contributers
 * Garrison Astaunda
