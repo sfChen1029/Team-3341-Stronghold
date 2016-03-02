@@ -7,7 +7,7 @@
 class GyroSubsystem: public Subsystem
 {
     private:
-        Gyro* gyro;
+        AnalogGyro* gyro;
 
     public:
         GyroSubsystem();

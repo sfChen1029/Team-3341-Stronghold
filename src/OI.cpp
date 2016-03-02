@@ -26,7 +26,7 @@ OI::OI() :
 {
     // Push button 16 once to make the robot turn 180 degrees
     Button* turn180Button = new JoystickButton(driveStick, 16);
-    turn180Button->WhenPressed(new TurnAndDrive(0.0, 90));
+    turn180Button->WhenPressed(new TurnAndDrive(0.0, 3.1415));
 
     // Hold down button 13 to "switch the front and back sides" of the robot
     // Make driving in reverse much easier

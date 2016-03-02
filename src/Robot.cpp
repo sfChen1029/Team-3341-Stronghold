@@ -32,7 +32,7 @@ class Robot: public IterativeRobot
                     CommandBase::ultraSonic->LEFTSENSOR);
 
             // Distance SetPoint: 3 Feet
-            driveCommand = new TurnAndDrive(3.0, 0.0);
+            driveCommand = new TurnAndDrive(20.0, 0.0);
 
             lw = LiveWindow::GetInstance();
             //the camera name (ex "cam0") can be found through the roborio web interface
@@ -54,8 +54,8 @@ class Robot: public IterativeRobot
 
         void AutonomousInit()
         {
-            if (autonomousCommand != NULL)
-                autonomousCommand->Start();
+            if (driveCommand != NULL)
+                driveCommand->Start();
         }
 
         void AutonomousPeriodic()
@@ -74,6 +74,8 @@ class Robot: public IterativeRobot
 
         void TeleopPeriodic()
         {
+            SmartDashboard::PutNumber("Gyro Angle",
+                    CommandBase::gyro->GetAngle());
             SmartDashboard::PutNumber("IR Analog Input",
                     CommandBase::acquirer->GetInput());
             SmartDashboard::PutBoolean("Ball Loaded",

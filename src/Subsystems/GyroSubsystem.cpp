@@ -5,7 +5,7 @@ GyroSubsystem::GyroSubsystem() :
     Subsystem("GyroSubsystem")
 {
 
-    gyro = new ADXRS450_Gyro();
+    gyro = new AnalogGyro(0);
     gyro->Calibrate();
     gyro->Reset();
 }

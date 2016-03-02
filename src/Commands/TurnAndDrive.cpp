@@ -14,7 +14,7 @@ void TurnAndDrive::Initialize()
     drive->ResetEncoders();
     gyro->ResetGyro();
     distancePid = new NewPIDController(0.15, 0.0, 0.0, distance, false);
-    anglePid = new NewPIDController(0.03, 1e-3, 0, angle, false);
+    anglePid = new NewPIDController(0.1, 1e-2, 0, angle, false);
 }
 
 void TurnAndDrive::Execute()
@@ -25,24 +25,24 @@ void TurnAndDrive::Execute()
     double current_angle = gyro->GetAngle();
     double rotateVal = anglePid->Tick(current_angle);
 
-    printf("Distance setpoint: %f; Current distance: %f; Distance error: %f; Distance Last PWM: %f; Distance rate: %f\n",
-           distancePid->GetSetPoint(), current_distance, distancePid->GetError(),
-           distancePid->GetLastPWM(), drive->GetRate());
+    std::cout << "Gyro PV: " << current_angle << std::endl;
+    std::cout << "Gyro error: " << anglePid->GetError() << std::endl;
 
-    drive->arcadeDrive(Drive::Limit(pwm_val, .5), Drive::Limit(rotateVal, 1.0));
+    drive->arcadeDrive(Drive::Limit(pwm_val, 0.7), Drive::Limit(rotateVal, 1.0));
 }
 
 bool TurnAndDrive::IsFinished()
 {
-    return 
+    bool finished =
     (
         (
             (fabs(distancePid->GetError()) < 0.005)
-            && (fabs(anglePid->GetError()) < 0.5) 
+            && (fabs(anglePid->GetError()) < 0.01)
             //&& (fabs(drive->GetRate()) < 1e-3)
         )
-        || IsTimedOut()
     );
+    if(finished) std::cout << "Autonomous finished" << std::endl;
+    return finished;
 }
 
 void TurnAndDrive::End()
@@ -53,4 +53,3 @@ void TurnAndDrive::End()
 void TurnAndDrive::Interrupted()
 {
 }
-

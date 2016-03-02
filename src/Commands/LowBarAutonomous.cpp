@@ -46,7 +46,7 @@ void LowBarAutonomous::breachLowBar()
         if (zf - zi >= 50)
             up = true;
     }
-    std::cout << xinit << " " << yinit << " " << zinit << std::endl;
+    //std::cout << xinit << " " << yinit << " " << zinit << std::endl;
     zf++;
 
     // Finished breaching low bar, now follow the wall
@@ -73,7 +73,7 @@ bool LowBarAutonomous::IsFinished()
 
 void LowBarAutonomous::End()
 {
-    std::cout << "Done!" << std::endl;
+    //std::cout << "Done!" << std::endl;
     drive->arcadeDrive(0, 0);
 }
 

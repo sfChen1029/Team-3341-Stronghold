@@ -22,8 +22,8 @@ void WallFollow::Execute()
     double distTravelledPV = drive->GetDistance();
     double distFromWallPV = ultraSonic->ReadUltra(SENSORINUSE);
 
-    std::cout << "Distance Travelled: " << distTravelledPV;
-    std::cout << "Distance From Wall: " << distFromWallPV;
+    //std::cout << "Distance Travelled: " << distTravelledPV;
+    //std::cout << "Distance From Wall: " << distFromWallPV;
 
     double distTravelledOutput = distTravelledPID->Tick(distTravelledPV);
     double distFromWallOutput = wallDistPID->Tick(distFromWallPV);
