@@ -32,5 +32,5 @@
 * Steven Yacoub
 
 ## FAQ
-Q: Do you have a FAQ?
-A: I think so.
+Q: Do you have a FAQ?  
+A: I think so.  
