@@ -25,6 +25,8 @@ void TurnAndDrive::Execute()
     double current_angle = gyro->GetAngle();
     double rotateVal = anglePid->Tick(current_angle);
 
+    std::cout << "rotateVal: " << rotateVal;
+
     std::cout << "Gyro PV: " << current_angle << std::endl;
     std::cout << "Gyro error: " << anglePid->GetError() << std::endl;
 

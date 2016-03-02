@@ -6,6 +6,7 @@
 #include "Commands/TurnAndDrive.h"
 #include "Commands/WallFollow.h"
 #include "CommandBase.h"
+#include "Commands/TurnXDegrees.h"
 #include <stdint.h>
 #include <Subsystems/Acquirer.h>
 
@@ -69,6 +70,8 @@ class Robot: public IterativeRobot
                 autonomousCommand->Cancel();
             CommandBase::drive->ResetEncoders();
             CommandBase::gyro->ResetGyro();
+//            Command* turn = new TurnXDegrees(1);
+//            turn->Start();
             // arm->Start();
         }
 

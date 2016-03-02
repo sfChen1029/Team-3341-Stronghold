@@ -34,7 +34,7 @@ void ArcadeDrive::Execute()
         if(!isReset)
         {
             drive->arcadeDrive(0, 0);
-            Wait(.05);
+           // Wait(.05);
             isReset = true;
             gyro->ResetGyro();
         }
