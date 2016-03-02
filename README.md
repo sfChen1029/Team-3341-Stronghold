@@ -33,4 +33,10 @@
 
 ## FAQ
 Q: Do you have a FAQ?  
-A: I think so.  
+A: I think so.
+
+Q: Does the robot work?  
+A: Maybe.
+
+Q: Can the robot fly?  
+A: Yes.
