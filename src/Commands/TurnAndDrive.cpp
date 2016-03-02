@@ -19,7 +19,7 @@ void TurnAndDrive::Initialize()
 
 void TurnAndDrive::Execute()
 {
-    gyro->ResetGyro();
+    //gyro->ResetGyro();
     double current_distance = drive->GetDistance();
     double pwm_val = distancePid->Tick(current_distance);
     double current_angle = gyro->GetAngle();
