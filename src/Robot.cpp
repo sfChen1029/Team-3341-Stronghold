@@ -6,6 +6,7 @@
 #include "Commands/TurnAndDrive.h"
 #include "Commands/WallFollow.h"
 #include "CommandBase.h"
+#include "Commands/MoatRun.h"
 #include "Commands/TurnXDegrees.h"
 #include <stdint.h>
 #include <Subsystems/Acquirer.h>
@@ -15,7 +16,7 @@ class Robot: public IterativeRobot
     private:
         // Autonomous testing commands
         LowBarAutonomous* autonomousCommand;
-        TurnAndDrive* driveCommand;
+        Command* driveCommand;
         WallFollow* wallFollowCommand;
 
         LiveWindow* lw;
@@ -24,7 +25,7 @@ class Robot: public IterativeRobot
         {
             CommandBase::init();
 
-            autonomousCommand = new LowBarAutonomous();
+           // autonomousCommand = new LowBarAutonomous();
 
             // Try to maintain the distance from the wal constant
             double distanceFromWall = CommandBase::ultraSonic->ReadUltra(
@@ -32,12 +33,18 @@ class Robot: public IterativeRobot
             wallFollowCommand = new WallFollow(distanceFromWall, 6.0,
                     CommandBase::ultraSonic->LEFTSENSOR);
 
-            // Distance SetPoint: 3 Feet
+            // use this to breach defense
             driveCommand = new TurnAndDrive(20.0, 0.0);
+
+            // Use this to only reach defense
+            //driveCommand = new TurnAndDrive(6.0,0.0);
+
+            // Use this for moat
+            //driveCommand = new MoatRun();
 
             lw = LiveWindow::GetInstance();
             //the camera name (ex "cam0") can be found through the roborio web interface
-            CameraServer::GetInstance()->StartAutomaticCapture("cam0");
+            CameraServer::GetInstance()->StartAutomaticCapture("cam1");
             CameraServer::GetInstance()->SetQuality(1500);
             std::shared_ptr<USBCamera> usbCamptr =
                     CameraServer::GetInstance()->m_camera; //(new USBCamera("cam1",true));
@@ -81,14 +88,15 @@ class Robot: public IterativeRobot
                     CommandBase::gyro->GetAngle());
             SmartDashboard::PutNumber("IR Analog Input",
                     CommandBase::acquirer->GetInput());
+            std::cout << "IR Analog Input: " << CommandBase::acquirer->GetInput() << std::endl;
             SmartDashboard::PutBoolean("Ball Loaded",
                     CommandBase::acquirer->DetectBall());
-            SmartDashboard::PutNumber("Right Encoder distance",
-                    CommandBase::drive->GetRightEncoderDistance());
-            SmartDashboard::PutNumber("Left Encoder distance",
-                    CommandBase::drive->GetLeftEncoderDistance());
-            SmartDashboard::PutNumber("Driver Slider Value",
-                    CommandBase::oi->getDriveStick()->GetThrottle());
+            //SmartDashboard::PutNumber("Right Encoder distance",
+            //        CommandBase::drive->GetRightEncoderDistance());
+            //SmartDashboard::PutNumber("Left Encoder distance",
+            //        CommandBase::drive->GetLeftEncoderDistance());
+            //SmartDashboard::PutNumber("Driver Slider Value",
+            //        CommandBase::oi->getDriveStick()->GetThrottle());
             CommandBase::ultraSonic->PrintUltraValues();
             Scheduler::GetInstance()->Run();
         }

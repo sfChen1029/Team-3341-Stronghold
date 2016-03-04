@@ -14,10 +14,12 @@ class TurnAndDrive: public CommandBase
         bool IsFinished();
         void End();
         void Interrupted();
+        void ForceFinish();
 
     private:
         double distance;
         double angle;
+        bool forceFinish;
         NewPIDController* distancePid;
         NewPIDController* anglePid;
 };

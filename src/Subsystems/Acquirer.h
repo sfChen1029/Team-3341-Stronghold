@@ -7,7 +7,7 @@
 class Acquirer: public Subsystem
 {
     private:
-        Jaguar* motor;
+        Talon* motor;
         bool enabled;
         AnalogInput* ir;
         int THRESHOLD;

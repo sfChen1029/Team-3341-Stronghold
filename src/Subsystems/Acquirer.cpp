@@ -3,11 +3,11 @@
 
 Acquirer::Acquirer(): Subsystem("Acquirer")
 {
-    motor = new Jaguar(ACQUIRER);
+    motor = new Talon(ACQUIRER);
     enabled = false;
     ir = new AnalogInput(ACQUIRER_IR);
 
-    THRESHOLD = 500;
+    THRESHOLD = 2500;
 }
 
 void Acquirer::Enable()

@@ -6,6 +6,7 @@ TurnAndDrive::TurnAndDrive(double inDistance, double inAngle)
     Requires(gyro);
     distancePid = NULL;
     anglePid = NULL;
+    forceFinish = false;
 }
 
 void TurnAndDrive::Initialize()
@@ -14,7 +15,7 @@ void TurnAndDrive::Initialize()
     drive->ResetEncoders();
     gyro->ResetGyro();
     distancePid = new NewPIDController(0.15, 0.0, 0.0, distance, false);
-    anglePid = new NewPIDController(0.1, 1e-2, 0, angle, false);
+    anglePid = new NewPIDController(0.05, 1e-2, 0, angle, false); // kp was 0.1 before,works for low bar
 }
 
 void TurnAndDrive::Execute()
@@ -44,7 +45,12 @@ bool TurnAndDrive::IsFinished()
         )
     );
     if(finished) std::cout << "Autonomous finished" << std::endl;
-    return finished;
+    return finished || forceFinish;
+}
+
+void TurnAndDrive::ForceFinish()
+{
+    forceFinish = true;
 }
 
 void TurnAndDrive::End()

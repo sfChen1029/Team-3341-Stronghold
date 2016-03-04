@@ -1,22 +1,23 @@
 #include "GetBall.h"
 #include "CommandBase.h"
 
-GetBall::GetBall()
+GetBall::GetBall(bool _isEmergency)
 {
+    isEmergency = _isEmergency;
     Requires(acquirer);
 }
 
 void GetBall::Initialize()
 {
 	if(!acquirer->DetectBall())
-	acquirer->Enable();
+        acquirer->Enable();
 }
 
 void GetBall::Execute()
 {
     acquirer->BallIn();
 
-    if(acquirer->DetectBall())
+    if(acquirer->DetectBall() && !isEmergency)
     	acquirer->Disable();
 }
 

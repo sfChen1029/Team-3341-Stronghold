@@ -25,8 +25,8 @@ OI::OI() :
     driveStick(new Joystick(DRIVESTICK)), operatorStick(new Joystick(OPERATORSTICK))
 {
     // Push button 16 once to make the robot turn 180 degrees
-    Button* turn180Button = new JoystickButton(driveStick, 16);
-    turn180Button->WhenPressed(new TurnAndDrive(0.0, 3.1415));
+    //Button* turn180Button = new JoystickButton(driveStick, 16);
+    //turn180Button->WhenPressed(new TurnAndDrive(0.0, 3.1415));
 
     // Hold down button 13 to "switch the front and back sides" of the robot
     // Make driving in reverse much easier
@@ -56,6 +56,11 @@ OI::OI() :
     Button* getBall4 = new JoystickButton(driveStick, 4);
     getBall4->WhenPressed(new GetBall());
     getBall4->WhenReleased(new StopAcquirer());
+
+    // Hold down button 14 on drive stick to get ball IN EMERGENCY MODE
+    Button* getBall14 = new JoystickButton(driveStick, 14);
+    getBall14->WhenPressed(new GetBall(true));
+    getBall14->WhenReleased(new StopAcquirer());
 
     // Hold down button 2 on operator stick to acquire ball
     // for operator (to help the driver focus more on driving)

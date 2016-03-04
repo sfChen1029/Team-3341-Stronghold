@@ -6,8 +6,10 @@
 
 class GetBall: public CommandBase
 {
+    private:
+        bool isEmergency;
     public:
-        GetBall();
+        GetBall(bool _isEmergency = false);
         void Initialize();
         void Execute();
         bool IsFinished();
