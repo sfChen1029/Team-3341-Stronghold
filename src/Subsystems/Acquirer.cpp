@@ -53,3 +53,4 @@ double Acquirer::GetInput()
 {
     return ir->GetValue();
 }
+

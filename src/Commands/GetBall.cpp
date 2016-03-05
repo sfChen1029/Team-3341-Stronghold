@@ -9,7 +9,7 @@ GetBall::GetBall(bool _isEmergency)
 
 void GetBall::Initialize()
 {
-	if(!acquirer->DetectBall())
+	if(!acquirer->DetectBall() || isEmergency)
         acquirer->Enable();
 }
 

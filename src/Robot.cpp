@@ -34,13 +34,13 @@ class Robot: public IterativeRobot
                     CommandBase::ultraSonic->LEFTSENSOR);
 
             // use this to breach defense
-            driveCommand = new TurnAndDrive(20.0, 0.0);
+            // driveCommand = new TurnAndDrive(20.0, 0.0);
 
             // Use this to only reach defense
             //driveCommand = new TurnAndDrive(6.0,0.0);
 
             // Use this for moat
-            //driveCommand = new MoatRun();
+            driveCommand = new MoatRun();
 
             lw = LiveWindow::GetInstance();
             //the camera name (ex "cam0") can be found through the roborio web interface
