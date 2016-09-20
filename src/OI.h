@@ -12,6 +12,8 @@ class OI
         Joystick* operatorStick;
     public:
         OI();
+        ~OI();
+
         Joystick* getDriveStick();
         Joystick* getOperatorStick();
 };

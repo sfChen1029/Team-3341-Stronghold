@@ -54,3 +54,8 @@ double Intake::GetInput()
     return ir->GetValue();
 }
 
+Intake::~Intake()
+{
+    delete motor;
+    delete ir;
+}

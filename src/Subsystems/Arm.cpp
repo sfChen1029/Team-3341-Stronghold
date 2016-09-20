@@ -68,3 +68,7 @@ void Arm::SetAngle(double angle)
     ArmOff();
 }
 
+Arm::~Arm()
+{
+    delete motor;
+}

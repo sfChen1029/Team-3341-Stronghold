@@ -83,6 +83,8 @@ OI::OI() :
     // Press button 8 on operator stick to stop Intake (in case of emergency)
     Button* stopBall = new JoystickButton(operatorStick, 8);
     stopBall->WhenPressed(new BrakeIntakeMotor());
+
+    //TODO: Delete Button* objects?
 }
 
 Joystick* OI::getDriveStick()
@@ -93,4 +95,10 @@ Joystick* OI::getDriveStick()
 Joystick* OI::getOperatorStick()
 {
     return operatorStick;
+}
+
+OI::~OI()
+{
+    delete driveStick;
+    delete operatorStick;
 }

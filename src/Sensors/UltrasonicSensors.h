@@ -18,6 +18,7 @@ class UltrasonicSensors
 
     public:
         UltrasonicSensors();
+        ~UltrasonicSensors();
 
         const static uint16_t FRONTSENSOR = 0;
         const static uint16_t RIGHTSENSOR = 1;

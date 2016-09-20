@@ -31,3 +31,8 @@ double  UltrasonicSensors::ReadUltra(uint16_t sensorIndex)
 {
 	return sensors[sensorIndex]-> GetRangeInches();
 }
+ 
+UltrasonicSensors::~UltrasonicSensors()
+{
+    delete sensors;
+}

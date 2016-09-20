@@ -8,12 +8,15 @@ class Intake: public Subsystem
 {
     private:
         Talon* motor;
-        bool enabled;
         AnalogInput* ir;
+
+        bool enabled;
         int THRESHOLD;
 
     public:
         Intake();
+        ~Intake();
+
         void BallIn();
         void BallOut();
         void Stop();

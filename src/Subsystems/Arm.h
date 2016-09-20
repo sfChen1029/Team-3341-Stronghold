@@ -29,8 +29,10 @@ class Arm: public Subsystem
         bool armControl;
 
     public:
-        float const static DEFAULT_SPEED;
         Arm();
+        ~Arm();
+
+        float const static DEFAULT_SPEED;
         void ArmOn();
         void ArmOff();
         void moveArm(float speed); // changed name from "MoveArm" to "moveArm" to avoid conflict with Command Name
