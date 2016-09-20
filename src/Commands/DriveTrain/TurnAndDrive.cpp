@@ -14,8 +14,8 @@ void TurnAndDrive::Initialize()
     SetTimeout(2.2);
     drive->ResetEncoders();
     drive->resetGyro();
-    distancePid = new NewPIDController(0.15, 0.0, 0.0, distance, false);
-    anglePid = new NewPIDController(0.05, 1e-2, 0, angle, false); // kp was 0.1 before,works for low bar
+    distancePid = new WVPIDController(0.15, 0.0, 0.0, distance, false);
+    anglePid = new WVPIDController(0.05, 1e-2, 0, angle, false); // kp was 0.1 before,works for low bar
 }
 
 void TurnAndDrive::Execute()

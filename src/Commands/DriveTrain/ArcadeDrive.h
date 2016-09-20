@@ -2,7 +2,7 @@
 #define ArcadeDrive_H
 
 #include "../CommandBase.h"
-#include "../NewPIDController.h"
+#include "../WVPIDController.h"
 #include "WPILib.h"
 
 class ArcadeDrive: public CommandBase
@@ -17,7 +17,7 @@ class ArcadeDrive: public CommandBase
     private:
         double mapToCubic(double a, double b, double signal);
         bool isReset;
-        NewPIDController* anglePid;
+        WVPIDController* anglePid;
 };
 
 #endif

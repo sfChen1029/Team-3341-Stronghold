@@ -2,7 +2,7 @@
 #define DriveXFeet_H
 
 #include "../CommandBase.h"
-#include "../NewPIDController.h"
+#include "../WVPIDController.h"
 #include "WPILib.h"
 
 class TurnAndDrive: public CommandBase
@@ -20,8 +20,8 @@ class TurnAndDrive: public CommandBase
         double distance;
         double angle;
         bool forceFinish;
-        NewPIDController* distancePid;
-        NewPIDController* anglePid;
+        WVPIDController* distancePid;
+        WVPIDController* anglePid;
 };
 
 #endif

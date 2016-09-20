@@ -1,6 +1,6 @@
-#include <NewPIDController.h>
+#include <WVPIDController.h>
 
-NewPIDController::NewPIDController(double Kp, double Ki, double Kd,
+WVPIDController::WVPIDController(double Kp, double Ki, double Kd,
                                    double setPoint, bool integralThreshold)
     : lastPWM(0), error(0)
 {
@@ -13,7 +13,7 @@ NewPIDController::NewPIDController(double Kp, double Ki, double Kd,
     integral = 0.0;
 }
 
-double NewPIDController::Tick(double measuredValue)
+double WVPIDController::Tick(double measuredValue)
 {
     error = setPoint - measuredValue;
     if(integralThreshold)
@@ -30,7 +30,7 @@ double NewPIDController::Tick(double measuredValue)
     return lastPWM;
 }
 
-void NewPIDController::SetSetPoint(double setPoint)
+void WVPIDController::SetSetPoint(double setPoint)
 {
     this->setPoint = setPoint;
     integral = 0;
@@ -38,48 +38,48 @@ void NewPIDController::SetSetPoint(double setPoint)
     error = 0;
 }
 
-double NewPIDController::GetSetPoint()
+double WVPIDController::GetSetPoint()
 {
     return setPoint;
 }
 
-void NewPIDController::SetKp(double Kp)
+void WVPIDController::SetKp(double Kp)
 {
     this->Kp = Kp;
 }
 
-double NewPIDController::GetKp()
+double WVPIDController::GetKp()
 {
     return Kp;
 }
 
-void NewPIDController::SetKi(double Ki)
+void WVPIDController::SetKi(double Ki)
 {
     this->Ki = Ki;
 }
 
 
-double NewPIDController::GetKi()
+double WVPIDController::GetKi()
 {
     return Ki;
 }
 
-void NewPIDController::SetKd(double Kd)
+void WVPIDController::SetKd(double Kd)
 {
     this->Kd = Kd;
 }
 
-double NewPIDController::GetKd()
+double WVPIDController::GetKd()
 {
     return Kd;
 }
 
-double NewPIDController::GetError()
+double WVPIDController::GetError()
 {
     return error;
 }
 
-double NewPIDController::GetLastPWM()
+double WVPIDController::GetLastPWM()
 {
     return lastPWM;
 }

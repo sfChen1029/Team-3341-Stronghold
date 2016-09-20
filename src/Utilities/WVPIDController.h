@@ -1,10 +1,10 @@
 #ifndef PIDCONTROLLER_H
 #define PIDCONTROLLER_H
 
-class NewPIDController
+class WVPIDController
 {
     public:
-        NewPIDController(double Kp, double Ki, double Kd, double setPoint,
+        WVPIDController(double Kp, double Ki, double Kd, double setPoint,
                          bool integralThreshold);
         double Tick(double measuredValue);
         void SetSetPoint(double setPoint);

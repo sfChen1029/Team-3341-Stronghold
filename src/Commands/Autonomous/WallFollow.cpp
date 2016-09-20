@@ -8,8 +8,8 @@ WallFollow::WallFollow(double distanceFromWall, double distanceToTarget, int sen
     Requires(ultraSonic);
     Requires(drive);
 
-    wallDistPID = new NewPIDController(0.01, 0, 0, distanceFromWall, false);
-    distTravelledPID = new NewPIDController(0.07, 0, 0, distanceToTarget, false);
+    wallDistPID = new WVPIDController(0.01, 0, 0, distanceFromWall, false);
+    distTravelledPID = new WVPIDController(0.07, 0, 0, distanceToTarget, false);
 }
 
 void WallFollow::Initialize()

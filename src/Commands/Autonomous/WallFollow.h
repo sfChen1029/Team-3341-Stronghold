@@ -3,13 +3,13 @@
 
 #include "../CommandBase.h"
 #include "WPILib.h"
-#include "NewPIDController.h"
+#include "WVPIDController.h"
 
 class WallFollow: public CommandBase
 {
     private:
-        NewPIDController* wallDistPID;
-        NewPIDController* distTravelledPID;
+        WVPIDController* wallDistPID;
+        WVPIDController* distTravelledPID;
 
         // Distances in feet
         double DISTANCE_FROM_WALL;
