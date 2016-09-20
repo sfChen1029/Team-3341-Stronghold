@@ -1,7 +1,7 @@
-#include <Subsystems/Acquirer.h>
+#include <Subsystems/Intake.h>
 #include "../RobotMap.h"
 
-Acquirer::Acquirer(): Subsystem("Acquirer")
+Intake::Intake(): Subsystem("Intake")
 {
     motor = new Talon(ACQUIRER);
     enabled = false;
@@ -10,46 +10,46 @@ Acquirer::Acquirer(): Subsystem("Acquirer")
     THRESHOLD = 2500;
 }
 
-void Acquirer::Enable()
+void Intake::Enable()
 {
     enabled = true;
 }
 
-void Acquirer::Disable()
+void Intake::Disable()
 {
     enabled = false;
 }
 
-void Acquirer::BallOut()
+void Intake::BallOut()
 {
     if(enabled)
         motor->SetSpeed(-1);
 }
 
-void Acquirer::BallIn()
+void Intake::BallIn()
 {
     if(enabled)
         motor->SetSpeed(0.6);
 }
 
-void Acquirer::Stop()
+void Intake::Stop()
 {
     motor->SetSpeed(0);
 }
 
-bool Acquirer::IsEnabled()
+bool Intake::IsEnabled()
 {
     return enabled;
 }
 
-bool Acquirer::DetectBall()
+bool Intake::DetectBall()
 {
     if(GetInput() > THRESHOLD)
         return false;
     else return true;
 }
 
-double Acquirer::GetInput()
+double Intake::GetInput()
 {
     return ir->GetValue();
 }

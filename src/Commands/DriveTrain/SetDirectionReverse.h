@@ -1,13 +1,13 @@
-#ifndef StopAcquirer_H
-#define StopAcquirer_H
+#ifndef SetDirectionReverse_H
+#define SetDirectionReverse_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class StopAcquirer: public CommandBase
+class SetDirectionReverse: public CommandBase
 {
     public:
-        StopAcquirer();
+        SetDirectionReverse();
         void Initialize();
         void Execute();
         bool IsFinished();

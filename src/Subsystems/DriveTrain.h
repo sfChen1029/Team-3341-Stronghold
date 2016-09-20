@@ -18,6 +18,7 @@ class Drive: public Subsystem
 
     public:
         Drive();
+        ~Drive();
 
         static float Limit(float num, float max);
 

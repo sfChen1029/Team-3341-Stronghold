@@ -1,13 +1,15 @@
-#ifndef StopArm_H
-#define StopArm_H
+#ifndef IntakeBall_H
+#define IntakeBall_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class StopArm: public CommandBase
+class IntakeBall: public CommandBase
 {
+    private:
+        bool isEmergency;
     public:
-        StopArm();
+        IntakeBall(bool _isEmergency = false);
         void Initialize();
         void Execute();
         bool IsFinished();

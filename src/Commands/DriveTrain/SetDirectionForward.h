@@ -1,13 +1,13 @@
-#ifndef DriveReverse_H
-#define DriveReverse_H
+#ifndef SetDirectionForward_H
+#define SetDirectionForward_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class DriveReverse: public CommandBase
+class SetDirectionForward: public CommandBase
 {
     public:
-        DriveReverse();
+        SetDirectionForward();
         void Initialize();
         void Execute();
         bool IsFinished();

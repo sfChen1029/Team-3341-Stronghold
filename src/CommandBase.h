@@ -1,16 +1,18 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
-#include <Subsystems/UltrasonicSensors.h>
 #include <string>
-#include "Commands/Command.h"
-#include "Subsystems/Drive.h"
-#include "Subsystems/GyroSubsystem.h"
-#include "Subsystems/Acquirer.h"
-#include "OI.h"
-#include "Subsystems/Acquirer.h"
-#include "Subsystems/Arm.h"
+
 #include "WPILib.h"
+#include "OI.h"
+
+#include "Commands/Command.h"
+
+#include "Subsystems/DriveTrain.h"
+#include "Subsystems/GyroSubsystem.h"
+#include "Subsystems/Intake.h"
+#include "Subsystems/Intake.h"
+#include "Subsystems/Arm.h"
 
 class CommandBase: public Command
 {
@@ -18,11 +20,10 @@ class CommandBase: public Command
         CommandBase(char const* name);
         CommandBase();
         static void init();
-        static Drive* drive;
+        static DriveTrain* drive;
         static OI* oi;
         static GyroSubsystem* gyro;
-        static UltrasonicSensors* ultraSonic;
-        static Acquirer* acquirer;
+        static Intake* intake;
         static Arm* arm;
 };
 

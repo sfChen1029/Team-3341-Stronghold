@@ -1,10 +1,10 @@
-#ifndef Acquirer_H
-#define Acquirer_H
+#ifndef Intake_H
+#define Intake_H
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-class Acquirer: public Subsystem
+class Intake: public Subsystem
 {
     private:
         Talon* motor;
@@ -13,7 +13,7 @@ class Acquirer: public Subsystem
         int THRESHOLD;
 
     public:
-        Acquirer();
+        Intake();
         void BallIn();
         void BallOut();
         void Stop();

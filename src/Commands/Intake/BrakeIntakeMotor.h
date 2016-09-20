@@ -1,15 +1,13 @@
-#ifndef GetBall_H
-#define GetBall_H
+#ifndef BrakeIntakeMotor_H
+#define BrakeIntakeMotor_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class GetBall: public CommandBase
+class BrakeIntakeMotor: public CommandBase
 {
-    private:
-        bool isEmergency;
     public:
-        GetBall(bool _isEmergency = false);
+        BrakeIntakeMotor();
         void Initialize();
         void Execute();
         bool IsFinished();

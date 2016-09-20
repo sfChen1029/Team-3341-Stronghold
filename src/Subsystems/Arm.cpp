@@ -9,7 +9,7 @@ Arm::Arm() :
     //encoder = new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2);
     motor = new Jaguar(ARM);
     speed = 0;
-    //Command* moveArm = new ShootBall();
+    //Command* moveArm = new EjectBall();
     //this->SetDefaultCommand(new MoveArm());
     //encoder = new AbsEncoder();
    // this->SetDefaultCommand(new MoveArm());

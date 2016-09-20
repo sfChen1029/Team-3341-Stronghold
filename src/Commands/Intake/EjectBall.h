@@ -1,13 +1,13 @@
-#ifndef ShootBall_H
-#define ShootBall_H
+#ifndef EjectBall_H
+#define EjectBall_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class ShootBall: public CommandBase
+class EjectBall: public CommandBase
 {
     public:
-        ShootBall();
+        EjectBall();
         void Initialize();
         void Execute();
         bool IsFinished();

@@ -1,4 +1,4 @@
-#include "Drive.h"
+#include "DriveTrain.h"
 #include "../RobotMap.h"
 #include <math.h>
 #include "Commands/ArcadeDrive.h"
@@ -15,6 +15,16 @@ Drive::Drive() :
 {
     encoderLeft->SetDistancePerPulse(1.0);
     encoderRight->SetDistancePerPulse(1.0);
+}
+
+
+Drive::~Drive()
+{
+    delete left;
+    delete right;    
+    delete encoderLeft;
+    delete encoderRight;
+    delete accel;
 }
 
 void Drive::setMult(float m)
