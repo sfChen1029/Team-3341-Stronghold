@@ -1,10 +1,9 @@
 #ifndef UltraSoundTester_H
 #define UltraSoundTester_H
 
-#include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-class UltrasonicSensors: public Subsystem
+class UltrasonicSensors
 {
     private:
         const uint16_t NUM_ULTRASONICS = 3;
@@ -18,12 +17,12 @@ class UltrasonicSensors: public Subsystem
         Ultrasonic* sensors[3];
 
     public:
+        UltrasonicSensors();
+
         const static uint16_t FRONTSENSOR = 0;
         const static uint16_t RIGHTSENSOR = 1;
         const static uint16_t LEFTSENSOR = 2;
 
-        UltrasonicSensors();
-        void InitDefaultCommand();
         double ReadUltra(uint16_t sensorIndex);
         void PrintUltraValues();
 };

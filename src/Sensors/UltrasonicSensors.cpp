@@ -1,12 +1,12 @@
-#include <Subsystems/UltrasonicSensors.h>
-#include "../RobotMap.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 
-UltrasonicSensors::UltrasonicSensors() :
-        Subsystem("UltraSoundTester")
+#include "../RobotMap.h"
+#include "UltrasonicSensors.h"
+
+UltrasonicSensors::UltrasonicSensors()
 {
     for (int i = 0; i < 3; i++)
     {
@@ -14,10 +14,6 @@ UltrasonicSensors::UltrasonicSensors() :
         sensors[i]->SetAutomaticMode(true); // turns on automatic mode
         sensors[i]->SetEnabled(true);
     }
-}
-
-void UltrasonicSensors::InitDefaultCommand()
-{
 }
 
 void UltrasonicSensors::PrintUltraValues()

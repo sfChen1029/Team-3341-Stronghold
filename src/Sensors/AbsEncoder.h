@@ -11,7 +11,6 @@ class AbsEncoder
 
     public:
         AbsEncoder();
-        void InitDefaultCommand();
         short getInput();
 };
 
