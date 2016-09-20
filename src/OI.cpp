@@ -1,11 +1,11 @@
 #include "OI.h"
+#include "CommandBase.h"
 #include "Commands/DriveReverse.h"
 #include "Commands/DriveForward.h"
 #include "Commands/TurnAndDrive.h"
 #include "Commands/EjectBall.h"
 #include "Commands/BrakeIntakeMotor.h"
 #include "Commands/GetBall.h"
-#include "CommandBase.h"
 
 /*
  * DESCRIPTION:

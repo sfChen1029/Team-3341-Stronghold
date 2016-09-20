@@ -4,13 +4,12 @@ ArcadeDrive::ArcadeDrive()
     : isReset(true)
 {
     Requires(drive);
-    Requires(gyro);
     anglePid = new NewPIDController(.05, 0, 0, 0, false);
 }
 
 void ArcadeDrive::Initialize()
 {
-    gyro->ResetGyro();
+    drive->resetGyro();
 }
 
 void ArcadeDrive::Execute()
@@ -36,13 +35,11 @@ void ArcadeDrive::Execute()
             drive->arcadeDrive(0, 0);
            // Wait(.05);
             isReset = true;
-            gyro->ResetGyro();
+            drive->resetGyro();
         }
 
-    	double angle = gyro->GetAngle();
+    	double angle = drive->getGyroAngle();
     	double correctedAngleSignal = anglePid->Tick(angle);
-        // TODO: the line below was here, do we need it?
-    	//drive->arcadeDrive(.05, correctedAngleSignal);
 
         // Feed the angle from the Gyro into the PID loop; use returned value from PID loop to drive straight
         if(fabs(yRaw) >= .05)

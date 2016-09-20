@@ -1,10 +1,10 @@
-#ifndef Drive_H
-#define Drive_H
+#ifndef DriveTrain_H
+#define DriveTrain_H
 
 #include <Commands/Subsystem.h>
 #include <WPILib.h>
 
-class Drive: public Subsystem
+class DriveTrain: public Subsystem
 {
     private:
         int ticksToDistance;
@@ -15,10 +15,11 @@ class Drive: public Subsystem
         Encoder* encoderLeft;
         Encoder* encoderRight;
         BuiltInAccelerometer* accel;
+        AnalogGyro* gyro;
 
     public:
-        Drive();
-        ~Drive();
+        DriveTrain();
+        ~DriveTrain();
 
         static float Limit(float num, float max);
 
@@ -26,13 +27,16 @@ class Drive: public Subsystem
         int getMult();
         void arcadeDrive(float move, float rotate);
 
-        double GetDistance();
-        double GetRate();
-        void ResetEncoders();
+        double getDistance();
+        double getRate();
+        void resetEncoders();
         void getAccelerations(double* x, double* y, double* z);
 
-        double GetRightEncoderDistance();
-        double GetLeftEncoderDistance();
+        double getRightEncoderDistance();
+        double getLeftEncoderDistance();
+
+        double getGyroAngle();
+        void resetGyro();
 
         void InitDefaultCommand();
 };

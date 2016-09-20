@@ -4,7 +4,6 @@
 #include "../CommandBase.h"
 #include "Commands/TurnAndDrive.h"
 #include "WPILib.h"
-//#include "GyroSubsystem.h"
 
 class LowBarAutonomous: public CommandBase
 {

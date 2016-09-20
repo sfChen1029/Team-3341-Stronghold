@@ -9,7 +9,6 @@
 #include "Commands/Command.h"
 
 #include "Subsystems/DriveTrain.h"
-#include "Subsystems/GyroSubsystem.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/Arm.h"
@@ -22,7 +21,6 @@ class CommandBase: public Command
         static void init();
         static DriveTrain* drive;
         static OI* oi;
-        static GyroSubsystem* gyro;
         static Intake* intake;
         static Arm* arm;
 };

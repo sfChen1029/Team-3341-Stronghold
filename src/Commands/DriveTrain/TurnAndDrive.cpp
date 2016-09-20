@@ -1,9 +1,9 @@
 #include <Commands/TurnAndDrive.h>
+
 TurnAndDrive::TurnAndDrive(double inDistance, double inAngle)
     : distance(inDistance), angle(inAngle)
 {
     Requires(drive);
-    Requires(gyro);
     distancePid = NULL;
     anglePid = NULL;
     forceFinish = false;
@@ -13,17 +13,16 @@ void TurnAndDrive::Initialize()
 {
     SetTimeout(2.2);
     drive->ResetEncoders();
-    gyro->ResetGyro();
+    drive->resetGyro();
     distancePid = new NewPIDController(0.15, 0.0, 0.0, distance, false);
     anglePid = new NewPIDController(0.05, 1e-2, 0, angle, false); // kp was 0.1 before,works for low bar
 }
 
 void TurnAndDrive::Execute()
 {
-    //gyro->ResetGyro();
     double current_distance = drive->GetDistance();
     double pwm_val = distancePid->Tick(current_distance);
-    double current_angle = gyro->GetAngle();
+    double current_angle = drive->getGyroAngle();
     double rotateVal = anglePid->Tick(current_angle);
 
     std::cout << "rotateVal: " << rotateVal;
