@@ -1,9 +1,9 @@
 #ifndef WallFollow_H
 #define WallFollow_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
-#include "WVPIDController.h"
+#include "../../Utilities/WVPIDController.h"
 
 class WallFollow: public CommandBase
 {

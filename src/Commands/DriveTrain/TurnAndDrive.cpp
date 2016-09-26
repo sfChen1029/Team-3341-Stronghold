@@ -1,4 +1,4 @@
-#include <Commands/TurnAndDrive.h>
+#include "../DriveTrain/TurnAndDrive.h"
 
 TurnAndDrive::TurnAndDrive(double inDistance, double inAngle)
     : distance(inDistance), angle(inAngle)
@@ -12,7 +12,7 @@ TurnAndDrive::TurnAndDrive(double inDistance, double inAngle)
 void TurnAndDrive::Initialize()
 {
     SetTimeout(2.2);
-    drive->ResetEncoders();
+    drive->resetEncoders();
     drive->resetGyro();
     distancePid = new WVPIDController(0.15, 0.0, 0.0, distance, false);
     anglePid = new WVPIDController(0.05, 1e-2, 0, angle, false); // kp was 0.1 before,works for low bar
@@ -20,7 +20,7 @@ void TurnAndDrive::Initialize()
 
 void TurnAndDrive::Execute()
 {
-    double current_distance = drive->GetDistance();
+    double current_distance = drive->getDistance();
     double pwm_val = distancePid->Tick(current_distance);
     double current_angle = drive->getGyroAngle();
     double rotateVal = anglePid->Tick(current_angle);
@@ -30,7 +30,7 @@ void TurnAndDrive::Execute()
     std::cout << "Gyro PV: " << current_angle << std::endl;
     std::cout << "Gyro error: " << anglePid->GetError() << std::endl;
 
-    drive->arcadeDrive(Drive::Limit(pwm_val, 0.7), Drive::Limit(rotateVal, 1.0));
+    drive->arcadeDrive(DriveTrain::Limit(pwm_val, 0.7), DriveTrain::Limit(rotateVal, 1.0));
 }
 
 bool TurnAndDrive::IsFinished()

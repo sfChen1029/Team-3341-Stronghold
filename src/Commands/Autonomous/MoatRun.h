@@ -1,9 +1,9 @@
 #ifndef MoatRun_H
 #define MoatRun_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
-#include "TurnAndDrive.h"
+#include "../DriveTrain/TurnAndDrive.h"
 
 class MoatRun: public CommandBase
 {

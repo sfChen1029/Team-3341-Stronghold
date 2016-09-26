@@ -2,10 +2,9 @@
 
 #include "../RobotMap.h"
 #include "../CommandBase.h"
+#include "../Commands/DriveTrain/ArcadeDrive.h"
 
 #include "DriveTrain.h"
-
-#include "Commands/ArcadeDriveTrain.h"
 
 #define max(x, y) (((x) > (y)) ? (x) : (y))
 
@@ -14,7 +13,8 @@ DriveTrain::DriveTrain() :
     encoderLeft(new Encoder(ENCODER_LEFT_1, ENCODER_LEFT_2)),
     encoderRight(new Encoder(ENCODER_RIGHT_1, ENCODER_RIGHT_2)), mult(1.0),
 	ticksToDistance(114), // 112 < ticksToDistance < 117
-	accel(), gyro(new AnalogGyro(GYROPIN))
+	accel(), gyro(new AnalogGyro(GYROPIN)),
+	ultrasonicSensors()
 {
     encoderLeft->SetDistancePerPulse(1.0);
     encoderRight->SetDistancePerPulse(1.0);
@@ -44,7 +44,7 @@ int DriveTrain::getMult()
 	return mult;
 }
 
-void DriveTrain::ResetEncoders()
+void DriveTrain::resetEncoders()
 {
     encoderLeft->Reset();
     encoderRight->Reset();
@@ -110,8 +110,8 @@ double DriveTrain::getDistance()
     // Average of both encoders (must negate to get proper direction)
     return 
     (
-        (double) ((encoderLeft->get()) / ticksToDistance) -
-        (double) ((encoderRight->get()) / ticksToDistance)
+        (double) ((encoderLeft->Get()) / ticksToDistance) -
+        (double) ((encoderRight->Get()) / ticksToDistance)
     ) / -2.0;
 }
 
@@ -121,32 +121,32 @@ double DriveTrain::getRate()
     // TODO: test to see if negation is necessary
     return 
     (
-        (double) ((encoderLeft->getRate()) / ticksToDistance) -
-        (double) ((encoderRight->getRate()) / ticksToDistance)
+        (double) ((encoderLeft->GetRate()) / ticksToDistance) -
+        (double) ((encoderRight->GetRate()) / ticksToDistance)
     ) / -2.0;
                  
 }
 
 void DriveTrain::getAccelerations(double* x, double* y, double* z)
 {
-	*x = accel->getX();
-	*y = accel->getY();
-	*z = accel->getZ();
+	*x = accel->GetX();
+	*y = accel->GetY();
+	*z = accel->GetZ();
 }
 
 void DriveTrain::InitDefaultCommand()
 {
-    SetDefaultCommand(new ArcadeDriveTrain());
+    SetDefaultCommand(new ArcadeDrive());
 }
 
 double DriveTrain::getLeftEncoderDistance()
 {
-	return this->encoderLeft->getDistance();
+	return this->encoderLeft->GetDistance();
 }
 
 double DriveTrain::getRightEncoderDistance()
 {
-	return -this->encoderRight->getDistance();
+	return -this->encoderRight->GetDistance();
 }
 
 double DriveTrain::getGyroAngle()
@@ -154,7 +154,12 @@ double DriveTrain::getGyroAngle()
     return -gyro->GetAngle();
 }
 
-void DriveTrain::ResetGyro()
+void DriveTrain::resetGyro()
 {
     gyro->Reset();
+}
+
+double DriveTrain::readUltra(uint16_t sensorIndex)
+{
+	return ultrasonicSensors->ReadUltra(sensorIndex);
 }

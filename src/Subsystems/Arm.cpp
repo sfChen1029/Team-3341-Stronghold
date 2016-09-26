@@ -1,6 +1,6 @@
 #include "Arm.h"
 #include "../RobotMap.h"
-#include "Commands/MoveArm.h"
+#include "../Commands/Arm/MoveArm.h"
 
 Arm::Arm() :
     Subsystem("Arm")

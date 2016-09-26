@@ -3,9 +3,9 @@
 
 Intake::Intake(): Subsystem("Intake")
 {
-    motor = new Talon(ACQUIRER);
+    motor = new Talon(INTAKE);
     enabled = false;
-    ir = new AnalogInput(ACQUIRER_IR);
+    ir = new AnalogInput(INTAKE_IR);
 
     THRESHOLD = 2500;
 }
@@ -44,12 +44,12 @@ bool Intake::IsEnabled()
 
 bool Intake::DetectBall()
 {
-    if(GetInput() > THRESHOLD)
+    if(getInput() > THRESHOLD)
         return false;
     else return true;
 }
 
-double Intake::GetInput()
+double Intake::getInput()
 {
     return ir->GetValue();
 }

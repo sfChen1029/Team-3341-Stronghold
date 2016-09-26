@@ -7,10 +7,6 @@ AbsEncoder::AbsEncoder()
     myAbsEncoder->Read(true, (uint8_t*)input, sizeof(input));
 }
 
-void AbsEncoder::InitDefaultCommand()
-{
-}
-
 short AbsEncoder::getInput()
 {
     return input;

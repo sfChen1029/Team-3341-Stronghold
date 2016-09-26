@@ -1,7 +1,7 @@
 #ifndef SetDirectionReverse_H
 #define SetDirectionReverse_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
 
 class SetDirectionReverse: public CommandBase

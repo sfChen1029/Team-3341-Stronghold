@@ -1,5 +1,5 @@
-#include "Commands/TurnAndDrive.h"
-#include <Commands/LowBarAutonomous.h>
+#include "../DriveTrain/TurnAndDrive.h"
+#include "LowBarAutonomous.h"
 
 LowBarAutonomous::LowBarAutonomous() :
     zf(0), zi(0), xinit(0), yinit(0), zinit(0),
@@ -13,7 +13,7 @@ LowBarAutonomous::LowBarAutonomous() :
 
 void LowBarAutonomous::Initialize()
 {
-    drive->ResetEncoders();
+    drive->resetEncoders();
     drive->getAccelerations(&xinit, &yinit, &zinit);
 }
 
@@ -52,7 +52,7 @@ void LowBarAutonomous::breachLowBar()
     // Finished breaching low bar, now follow the wall
     if(upndown || zf > 2000000)
     {
-        drive->ResetEncoders();
+        drive->resetEncoders();
         // TODO: switch AUTONOMOUSDONE to WALLFOLLOW once BREACHLOWBAR works
         mode = breachModes::AUTONOMOUSDONE;
     }

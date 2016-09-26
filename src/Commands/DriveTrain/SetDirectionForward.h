@@ -1,7 +1,7 @@
 #ifndef SetDirectionForward_H
 #define SetDirectionForward_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
 
 class SetDirectionForward: public CommandBase

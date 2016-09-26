@@ -1,8 +1,8 @@
 #ifndef ArcadeDrive_H
 #define ArcadeDrive_H
 
-#include "../CommandBase.h"
-#include "../WVPIDController.h"
+#include "../../CommandBase.h"
+#include "../../Utilities/WVPIDController.h"
 #include "WPILib.h"
 
 class ArcadeDrive: public CommandBase

@@ -1,7 +1,7 @@
 #ifndef EjectBall_H
 #define EjectBall_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
 
 class EjectBall: public CommandBase

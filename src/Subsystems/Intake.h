@@ -24,7 +24,7 @@ class Intake: public Subsystem
         void Enable();
         void Disable();
         bool DetectBall();
-        double GetInput();
+        double getInput();
 };
 
 #endif

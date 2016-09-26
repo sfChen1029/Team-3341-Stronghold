@@ -1,15 +1,17 @@
-#include "WPILib.h"
-#include "Commands/Command.h"
-#include "Commands/LowBarAutonomous.h"
-#include "Commands/MoveArm.h"
-#include "Commands/AutonomousProgram.h"
-#include "Commands/TurnAndDrive.h"
-#include "Commands/WallFollow.h"
-#include "CommandBase.h"
-#include "Commands/MoatRun.h"
-#include "Commands/TurnXDegrees.h"
-#include <stdint.h>
-#include <Subsystems/Intake.h>
+#include <CameraServer.h>
+#include <Commands/Autonomous/LowBarAutonomous.h>
+#include <Commands/Autonomous/MoatRun.h>
+#include <Commands/Autonomous/WallFollow.h>
+#include <Commands/Scheduler.h>
+#include <IterativeRobot.h>
+#include <LiveWindow/LiveWindow.h>
+#include <RobotBase.h>
+#include <stddef.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <Subsystems/DriveTrain.h>
+#include <USBCamera.h>
+#include <iostream>
+#include <memory>
 
 class Robot: public IterativeRobot
 {
@@ -28,10 +30,10 @@ class Robot: public IterativeRobot
            // autonomousCommand = new LowBarAutonomous();
 
             // Try to maintain the distance from the wal constant
-            double distanceFromWall = CommandBase::ultraSonic->ReadUltra(
-                    CommandBase::ultraSonic->LEFTSENSOR);
+            double distanceFromWall = CommandBase::drive->readUltra(
+                    UltrasonicSensors::LEFTSENSOR);
             wallFollowCommand = new WallFollow(distanceFromWall, 6.0,
-                    CommandBase::ultraSonic->LEFTSENSOR);
+                    UltrasonicSensors::LEFTSENSOR);
 
             // use this to breach defense
             // driveCommand = new TurnAndDrive(20.0, 0.0);
@@ -46,13 +48,12 @@ class Robot: public IterativeRobot
             //the camera name (ex "cam0") can be found through the roborio web interface
             CameraServer::GetInstance()->StartAutomaticCapture("cam1");
             CameraServer::GetInstance()->SetQuality(1500);
-            std::shared_ptr<USBCamera> usbCamptr =
-                    CameraServer::GetInstance()->m_camera; //(new USBCamera("cam1",true));
-            if (usbCamptr != nullptr)
-            {
-                usbCamptr->SetBrightness(2);
-                usbCamptr->SetExposureAuto();
-            }
+            //std::shared_ptr<USBCamera> usbCamptr = CameraServer::GetInstance()->m_camera; //(new USBCamera("cam1",true));
+            //if (usbCamptr != nullptr)
+            //{
+            //    usbCamptr->SetBrightness(2);
+            //    usbCamptr->SetExposureAuto();
+            //}
         }
 
         void DisabledPeriodic()
@@ -75,29 +76,26 @@ class Robot: public IterativeRobot
         {
             if (autonomousCommand != NULL)
                 autonomousCommand->Cancel();
-            CommandBase::drive->ResetEncoders();
-            CommandBase::gyro->ResetGyro();
-//            Command* turn = new TurnXDegrees(1);
-//            turn->Start();
-            // arm->Start();
+            CommandBase::drive->resetEncoders();
+            CommandBase::drive->resetGyro();
         }
 
         void TeleopPeriodic()
         {
             SmartDashboard::PutNumber("Gyro Angle",
-                    CommandBase::gyro->GetAngle());
+                    CommandBase::drive->getGyroAngle());
             SmartDashboard::PutNumber("IR Analog Input",
-                    CommandBase::acquirer->GetInput());
-            std::cout << "IR Analog Input: " << CommandBase::acquirer->GetInput() << std::endl;
+                    CommandBase::intake->getInput());
+            std::cout << "IR Analog Input: " << CommandBase::intake->getInput() << std::endl;
             SmartDashboard::PutBoolean("Ball Loaded",
-                    CommandBase::acquirer->DetectBall());
+                    CommandBase::intake->DetectBall());
             //SmartDashboard::PutNumber("Right Encoder distance",
             //        CommandBase::drive->GetRightEncoderDistance());
             //SmartDashboard::PutNumber("Left Encoder distance",
             //        CommandBase::drive->GetLeftEncoderDistance());
             //SmartDashboard::PutNumber("Driver Slider Value",
             //        CommandBase::oi->getDriveStick()->GetThrottle());
-            CommandBase::ultraSonic->PrintUltraValues();
+            //CommandBase::ultraSonic->PrintUltraValues();
             Scheduler::GetInstance()->Run();
         }
 

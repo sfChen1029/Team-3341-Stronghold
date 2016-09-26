@@ -1,8 +1,8 @@
 #ifndef BreachDefense_H
 #define BreachDefense_H
 
-#include "../CommandBase.h"
-#include "Commands/TurnAndDrive.h"
+#include "../../CommandBase.h"
+#include "../DriveTrain/TurnAndDrive.h"
 #include "WPILib.h"
 
 class LowBarAutonomous: public CommandBase

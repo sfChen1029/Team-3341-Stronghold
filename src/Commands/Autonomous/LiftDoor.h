@@ -1,7 +1,7 @@
 #ifndef LiftDoor_H
 #define LiftDoor_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 #include "WPILib.h"
 
 class LiftDoor: public CommandBase

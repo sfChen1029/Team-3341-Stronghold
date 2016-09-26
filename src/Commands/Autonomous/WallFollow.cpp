@@ -1,11 +1,10 @@
 #include "WallFollow.h"
-#include "ArcadeDrive.h"
+#include "../DriveTrain/ArcadeDrive.h"
 
 // distanceToWall in inches, distanceToTarget in feet
 WallFollow::WallFollow(double distanceFromWall, double distanceToTarget, int sensorToUse) :
     DISTANCE_FROM_WALL(distanceFromWall), DISTANCE_TO_TARGET(distanceToTarget), SENSORINUSE(sensorToUse)
 {
-    Requires(ultraSonic);
     Requires(drive);
 
     wallDistPID = new WVPIDController(0.01, 0, 0, distanceFromWall, false);
@@ -14,13 +13,13 @@ WallFollow::WallFollow(double distanceFromWall, double distanceToTarget, int sen
 
 void WallFollow::Initialize()
 {
-    drive->ResetEncoders();
+    drive->resetEncoders();
 }
 
 void WallFollow::Execute()
 {
-    double distTravelledPV = drive->GetDistance();
-    double distFromWallPV = ultraSonic->ReadUltra(SENSORINUSE);
+    double distTravelledPV = drive->getDistance();
+    double distFromWallPV = drive->readUltra(SENSORINUSE);
 
     //std::cout << "Distance Travelled: " << distTravelledPV;
     //std::cout << "Distance From Wall: " << distFromWallPV;
@@ -33,7 +32,7 @@ void WallFollow::Execute()
 
 bool WallFollow::IsFinished()
 {
-    return fabs(drive->GetDistance() - DISTANCE_TO_TARGET) < 0.1;
+    return fabs(drive->getDistance() - DISTANCE_TO_TARGET) < 0.1;
 }
 
 void WallFollow::End()

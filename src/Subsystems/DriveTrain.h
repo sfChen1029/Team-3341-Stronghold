@@ -1,8 +1,9 @@
 #ifndef DriveTrain_H
 #define DriveTrain_H
 
-#include <Commands/Subsystem.h>
 #include <WPILib.h>
+#include "Commands/Subsystem.h"
+#include "../Sensors/UltrasonicSensors.h"
 
 class DriveTrain: public Subsystem
 {
@@ -16,6 +17,7 @@ class DriveTrain: public Subsystem
         Encoder* encoderRight;
         BuiltInAccelerometer* accel;
         AnalogGyro* gyro;
+        UltrasonicSensors* ultrasonicSensors;
 
     public:
         DriveTrain();
@@ -37,6 +39,8 @@ class DriveTrain: public Subsystem
 
         double getGyroAngle();
         void resetGyro();
+
+        double readUltra(uint16_t sensorIndex);
 
         void InitDefaultCommand();
 };
