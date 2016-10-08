@@ -35,50 +35,34 @@ OI::OI() :
     toggleReverse->WhenReleased(new SetDirectionForward());
 
     // Hold down trigger on drive stick to shoot ball
-    Button* shootBall = new JoystickButton(driveStick, 1);
-    shootBall->WhenPressed(new EjectBall());
-    shootBall->WhenReleased(new BrakeIntakeMotor());
+    
 
     // Hold down button 2 on drive stick to get ball
     // for right handed drivers
-    Button* getBall2 = new JoystickButton(driveStick, 2);
-    getBall2->WhenPressed(new IntakeBall());
-    getBall2->WhenReleased(new BrakeIntakeMotor());
+    
 
     // Hold down button 3 on drive stick to get ball
     // for right handed drivers
-    Button* getBall3 = new JoystickButton(driveStick, 3);
-    getBall3->WhenPressed(new IntakeBall());
-    getBall3->WhenReleased(new BrakeIntakeMotor());
+    
 
     // Hold down button 4 on drive stick to get ball
     // for left handed drivers
-    Button* getBall4 = new JoystickButton(driveStick, 4);
-    getBall4->WhenPressed(new IntakeBall());
-    getBall4->WhenReleased(new BrakeIntakeMotor());
+   
 
     // Hold down button 14 on drive stick to get ball IN EMERGENCY MODE
-    Button* getBall14 = new JoystickButton(driveStick, 14);
-    getBall14->WhenPressed(new IntakeBall(true));
-    getBall14->WhenReleased(new BrakeIntakeMotor());
+    
 
     // Hold down button 2 on operator stick to acquire ball
     // for operator (to help the driver focus more on driving)
-    Button* getBall2Operator = new JoystickButton(operatorStick, 2);
-    getBall2Operator->WhenPressed(new IntakeBall());
-    getBall2Operator->WhenReleased(new BrakeIntakeMotor());
+    
 
     // Hold down button 3 on operator stick to acquire ball
     // for operator (to help the driver focus more on driving)
-    Button* getBall3Operator = new JoystickButton(operatorStick, 3);
-    getBall3Operator->WhenPressed(new IntakeBall());
-    getBall3Operator->WhenReleased(new BrakeIntakeMotor());
+   
 
     // Hold down button 4 on operator stick to acquire ball
     // for operator (to help the driver focus more on driving)
-    Button* getBall4Operator = new JoystickButton(operatorStick, 4);
-    getBall4Operator->WhenPressed(new IntakeBall());
-    getBall4Operator->WhenReleased(new BrakeIntakeMotor());
+   
 
     // Press button 8 on operator stick to stop Intake (in case of emergency)
     Button* stopBall = new JoystickButton(operatorStick, 8);
