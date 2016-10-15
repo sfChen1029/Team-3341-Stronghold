@@ -19,5 +19,6 @@ void CommandBase::init()
 {
     drive = new DriveTrain();
     oi = new OI();
+    arm = new Arm();
 
 }
